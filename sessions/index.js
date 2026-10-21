@@ -1,0 +1,127 @@
+// The single place that defines the four sessions.
+// `locked` sessions open with a facilitator code; `unlockHash` is SHA-256 of the
+// upper-cased code. Change codes with `npm run facilitator:hash -- NEW-CODE`.
+export const SESSIONS = [
+  {
+    number: 1,
+    teaser: [
+      'Data, bits & the internet',
+      'Cloud: IaaS, PaaS & SaaS',
+      'Hacking: myth vs reality',
+      'CIA triad',
+      'Threats, vulnerabilities & risk',
+      'Malware zoo',
+      'Phishing & illusions',
+      'Passwords & hashing',
+      'Cyber law & ethics',
+      'Virtual lab: VMs vs containers',
+      'Linux terminal from zero'
+    ],
+    slug: 'spark',
+    folder: '01-spark',
+    name: 'SPARK',
+    title: 'Foundations from Zero',
+    tagline: 'From “what’s a bit?” to “I built a hacking lab”. In one episode.',
+    element: 'electricity',
+    accent: '#ffdf20',
+    accent2: '#53eafd',
+    backdrop: 'world',
+    world: { palette: { deep: '#0b3a66', crest: '#53eafd', flash: '#ffdf20', core: '#ffdf20' }, mood: 'spark' },
+    locked: false,
+    load: () => import('./01-spark/content.jsx'),
+    guide: () => import('./01-spark/guide.md?raw')
+  },
+  {
+    number: 2,
+    teaser: [
+      'How networks are built',
+      'IP, MAC, ports, NAT & gateways',
+      'Packets & the TCP handshake',
+      'DNS: the internet’s phonebook',
+      'HTTP vs HTTPS',
+      'Wireshark: see the packets',
+      'Nmap: map your own lab',
+      'Attacks on the wire',
+      'Firewalls & cloud security groups',
+      'Network commands lab',
+      'VPN, Wi-Fi & Zero Trust'
+    ],
+    slug: 'current',
+    folder: '02-current',
+    name: 'CURRENT',
+    title: 'Networks & Network Defense',
+    tagline: 'Follow every packet. Spoiler: they gossip. Learn how data flows, leaks and gets walled in.',
+    element: 'electricity',
+    accent: '#2b7fff',
+    accent2: '#8ec5ff',
+    backdrop: 'world',
+    world: { palette: { deep: '#0a2a6e', crest: '#2b7fff', flash: '#8ec5ff', core: '#53eafd' }, mood: 'current' },
+    locked: true,
+    unlockHash: '8782ddb0dc18dfa0109ba9d305784c7a24861d96fd5fa98c378560c5d1f6fea7',
+    load: () => import('./02-current/content.jsx'),
+    guide: () => import('./02-current/guide.md?raw')
+  },
+  {
+    number: 3,
+    teaser: [
+      'Build it: VM, C program & web app',
+      'Cloud tour: PaaS, EC2, storage & access',
+      'Secret writing & ciphers',
+      'Steganography illusions',
+      'Keys: symmetric vs public',
+      'Hashes, signatures & certificates',
+      'How a website works',
+      'Cookies & sessions',
+      'OWASP Top 10',
+      'Injection flaws & safe queries',
+      'Output encoding & access control',
+      'Secure-coding checklist'
+    ],
+    slug: 'tide',
+    folder: '03-tide',
+    name: 'TIDE',
+    title: 'Cryptography & Web Security',
+    tagline: 'Build it, encrypt it, secure it. The web apps you use daily, seen from inside (it’s messier than you think).',
+    element: 'water',
+    accent: '#46ecd5',
+    accent2: '#53eafd',
+    backdrop: 'world',
+    world: { palette: { deep: '#06403c', crest: '#46ecd5', flash: '#53eafd', core: '#00bba7' }, mood: 'tide' },
+    locked: true,
+    unlockHash: '21eb92bcf3b0bee8ea11b2e6be7abaf2cb0bc6f6b24a92a592e7db3a9a151c38',
+    load: () => import('./03-tide/content.jsx'),
+    guide: () => import('./03-tide/guide.md?raw')
+  },
+  {
+    number: 4,
+    teaser: [
+      'Blue team & the SOC',
+      'Logs: the security camera',
+      'Reading logs like a defender',
+      'The cyber kill chain',
+      'Incident response',
+      'Digital forensics basics',
+      'Cloud & AI security',
+      'Careers roadmap',
+      'Warm-up CTF',
+      'Secure Cloud Deployment Challenge',
+      'Team live demos'
+    ],
+    slug: 'surge',
+    folder: '04-surge',
+    name: 'SURGE',
+    title: 'Defenders, Incidents & Capstone CTF',
+    tagline: 'Become the defender. Hunt in logs, fight incidents, deploy to the cloud, flex in the demo.',
+    element: 'water',
+    accent: '#8e51ff',
+    accent2: '#e12afb',
+    backdrop: 'world',
+    world: { palette: { deep: '#2a0f5e', crest: '#8e51ff', flash: '#e12afb', core: '#e12afb' }, mood: 'surge' },
+    locked: true,
+    unlockHash: 'c7d46a4f956bd9d66277ff2b7a58ad36498e7f8eea988377c950420a3e78662c',
+    load: () => import('./04-surge/content.jsx'),
+    guide: () => import('./04-surge/guide.md?raw')
+  }
+];
+
+export const getSession = n => SESSIONS.find(s => s.number === Number(n));
