@@ -16,3 +16,10 @@
 - If cloud accounts or internet are unavailable, use a local VM: every lab works on the Ubuntu VM.
 - Students use free tiers with a billing alert, and **stop or delete temporary cloud resources after the workshop**.
 - Restate the golden rule at the start of every episode: *stop what you start.*
+
+## Shared lab PCs: resetting between students
+Open the **profile** (click the XP bar) and scroll to **Reset**:
+- **Reset score** clears XP, badges, combos and boss results. Mission progress, checklists and unlocked episodes stay. Use it to replay the game.
+- **Reset everything** wipes all activity in this browser: XP, badges, mission progress, takeaway checklists, unlocked episodes, team card, handle and last position. The next student starts at episode 01, locked like new. (The lite-mode setting is kept.)
+
+Both ask for confirmation. Progress lives only in the browser's local storage, so nothing is shared between PCs or students.

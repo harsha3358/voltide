@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { BADGES, randomHandle, rankFor, RANKS, resetGame, setHandle, useGame } from '../lib/game.js';
+import { BADGES, randomHandle, rankFor, RANKS, resetEverything, resetScore, setHandle, useGame } from '../lib/game.js';
 import { useProgress } from '../lib/progress.js';
 import { SESSIONS } from '../../sessions/index.js';
 import Backdrop from '../components/Backdrop.jsx';
@@ -15,10 +15,12 @@ export default function Profile() {
   const progress = useProgress();
   const r = rankFor(g.xp);
   const [name, setName] = useState(g.handle);
-  const [confirmReset, setConfirmReset] = useState(false);
+  const [resetMode, setResetMode] = useState(null);
+  const [resetDone, setResetDone] = useState('');
   const earned = Object.keys(g.badges).filter(id => BADGES[id]).length;
   const pct = r.next ? ((g.xp - r.floor) / (r.next - r.floor)) * 100 : 100;
-  const s1Done = g.badges['boss-1'] && g.badges['decoder-1'];
+  const doneEpisodes = SESSIONS.filter(s => g.badges[`boss-${s.number}`] && g.badges[`decoder-${s.number}`]).length;
+  const graduate = doneEpisodes === SESSIONS.length;
   return (
     <>
       <Backdrop kind="world" opacity={0.45} />
@@ -87,37 +89,81 @@ export default function Profile() {
           ))}
         </ol>
 
+        <h2 style={{ marginTop: 40 }}>Episode certificates</h2>
+        <div className="grid-3">
+          {SESSIONS.map(s => {
+            const ok = g.badges[`boss-${s.number}`] && g.badges[`decoder-${s.number}`];
+            return (
+              <div key={s.number} className="card" style={{ borderColor: ok ? s.accent : undefined }}>
+                <span className="d-label" style={{ color: s.accent }}>Episode 0{s.number} · {s.name}</span>
+                <strong>{s.title}</strong>
+                <p className="d-note">{ok ? '✅ Complete: transmission decrypted and boss defeated.' : '🔒 Finish every mission and beat the boss.'}</p>
+              </div>
+            );
+          })}
+        </div>
+
         <div className="cert cert-print">
-          <span className="kicker">Certificate · Episode 01 · SPARK</span>
-          {s1Done ? (
+          <span className="kicker">Certificate · Cloud Computing Workshop</span>
+          {graduate ? (
             <>
               <h2>{g.handle}</h2>
-              <p>completed <strong>Episode 01 · SPARK: Cloud from Zero + Setup</strong>, decrypted the transmission and defeated LAGZILLA.</p>
+              <p>
+                completed all four episodes of <strong>VOLTIDE · Cloud Computing Workshop</strong>: cloud basics &amp; setup, computer
+                networks, cloud lab practicals and the cloud deployment challenge, and defeated every form of LAGZILLA.
+              </p>
               <p className="d-note">Rank: {r.name} · {g.xp} XP · {earned} badges</p>
               <button type="button" className="btn btn--primary" onClick={() => window.print()}>Print / save as PDF</button>
             </>
           ) : (
-            <p style={{ marginTop: 12 }}>🔒 Unlocks when you finish every Episode 01 mission <em>and</em> beat the boss.</p>
+            <p style={{ marginTop: 12 }}>
+              🔒 Become a <strong>Workshop Graduate</strong>: complete all four episodes ({doneEpisodes}/4 so far).
+            </p>
           )}
         </div>
 
-        <p className="d-row" style={{ marginTop: 30 }}>
-          {confirmReset ? (
-            <>
-              <span className="d-note" style={{ margin: 0 }}>Wipe all XP and badges on this device? No undo.</span>
-              <button type="button" className="btn btn--sm" style={{ borderColor: 'var(--danger)', color: 'var(--danger)' }} onClick={() => { resetGame(); setConfirmReset(false); }}>
-                Yes, reset
+        <section className="card reset-panel" aria-labelledby="reset-h">
+          <h2 id="reset-h" style={{ fontSize: '1.4rem' }}>Reset (shared lab PCs)</h2>
+          <p className="d-note" style={{ marginTop: 0 }}>Handing this computer to the next student? Pick one.</p>
+          {resetMode === null && (
+            <div className="reset-grid">
+              <button type="button" className="reset-opt" onClick={() => setResetMode('score')}>
+                <strong>Reset score</strong>
+                <span>XP, rank, badges and combos go to zero. Missions done and unlocked episodes stay.</span>
               </button>
-              <button type="button" className="btn btn--sm btn--ghost" onClick={() => setConfirmReset(false)}>
-                Keep my stuff
+              <button type="button" className="reset-opt reset-opt--danger" onClick={() => setResetMode('all')}>
+                <strong>Reset everything</strong>
+                <span>Wipes all activity: score, badges, missions, secret messages, unlocked episodes, boss results and intros. Like a brand-new browser.</span>
               </button>
-            </>
-          ) : (
-            <button type="button" className="btn btn--sm btn--ghost" onClick={() => setConfirmReset(true)}>
-              Reset my progress
-            </button>
+            </div>
           )}
-        </p>
+          {resetMode && (
+            <div className="d-row" role="alertdialog" aria-label="Confirm reset">
+              <span style={{ fontSize: 15 }}>
+                {resetMode === 'all' ? 'Wipe ALL activity on this browser? There is no undo.' : 'Reset XP, rank and badges to zero? Missions stay done.'}
+              </span>
+              <button
+                type="button"
+                className="btn btn--sm"
+                style={{ borderColor: 'var(--danger)', color: 'var(--danger)' }}
+                onClick={() => {
+                  if (resetMode === 'all') resetEverything();
+                  else {
+                    resetScore();
+                    setResetMode(null);
+                    setResetDone('Score reset. Fresh start, same progress.');
+                  }
+                }}
+              >
+                {resetMode === 'all' ? 'Yes, reset everything' : 'Yes, reset score'}
+              </button>
+              <button type="button" className="btn btn--sm btn--ghost" onClick={() => setResetMode(null)}>
+                Cancel
+              </button>
+            </div>
+          )}
+          {resetDone && <p className="d-note d-good" role="status">{resetDone}</p>}
+        </section>
       </section>
     </>
   );

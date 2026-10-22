@@ -1,8 +1,8 @@
 {
-  "name": "voltide-cybersecurity-walkthrough",
+  "name": "voltide-cloud-walkthrough",
   "private": true,
   "version": "1.0.0",
-  "description": "VOLTIDE \u2014 an animated, four-session cybersecurity walkthrough for B.Tech students.",
+  "description": "VOLTIDE \u2014 an animated, four-episode cloud computing walkthrough for B.Tech students.",
   "type": "module",
   "scripts": {
     "dev": "vite",

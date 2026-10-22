@@ -2,12 +2,12 @@ import { useRef, useState } from 'react';
 import { inline } from '../lib/md.js';
 import { useSpark } from './Spark.jsx';
 import { answer, award } from '../lib/game.js';
-import { Alert, Bolt, Check, Drop, Sparkle, Terminal as TermIcon } from './Icons.jsx';
+import { Alert, Check } from './Icons.jsx';
 
 export const Md = ({ as: Tag = 'span', children, ...rest }) => <Tag {...rest} dangerouslySetInnerHTML={inline(children)} />;
 
-// "In plain words", the water/electricity analogy and the jargon list:
-// the three helpers every topic gives a first-time learner.
+// The one-line summary, the analogy and the jargon list: the three helpers
+// every topic gives a first-time learner. No headings, the boxes speak for themselves.
 export function Helpers({ plain, analogy, jargon }) {
   if (!plain && !analogy && !jargon?.length) return null;
   const water = analogy?.type === 'water';
@@ -15,25 +15,16 @@ export function Helpers({ plain, analogy, jargon }) {
     <div className="helpers" data-reveal>
       {plain && (
         <div className="helper helper--plain">
-          <div className="helper__label">
-            <Sparkle /> TL;DR
-          </div>
           <Md as="p">{plain}</Md>
         </div>
       )}
       {analogy && (
         <div className={`helper ${water ? 'helper--water' : 'helper--electric'}`}>
-          <div className="helper__label">
-            {water ? <Drop /> : <Bolt />} {water ? 'Water analogy' : 'Electric analogy'}
-          </div>
           <Md as="p">{analogy.text}</Md>
         </div>
       )}
       {jargon?.length > 0 && (
         <div className="helper">
-          <div className="helper__label">
-            <TermIcon /> Jargon, translated
-          </div>
           <dl className="jargon">
             {jargon.map(([term, def]) => (
               <div key={term}>

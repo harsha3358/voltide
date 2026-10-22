@@ -2,7 +2,6 @@
 // Audience: first-year B.Tech students with no prior background (Gen Z / Gen Alpha).
 // Every mission: hook → TL;DR → analogy → jargon → explanation → visual/demo → lab → checkpoint.
 // Topics follow Session 01 of the Cloud Computing Workshop plan (facilitator/reference).
-import './demos/spark.css';
 import MythCards from './demos/MythCards.jsx';
 import BitSwitches from './demos/BitSwitches.jsx';
 import PacketPipes from './visuals/PacketPipes.jsx';

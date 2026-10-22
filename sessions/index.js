@@ -6,11 +6,13 @@ export const SESSIONS = [
     number: 1,
     teaser: [
       'What the cloud really is',
-      'Bits, bytes & the internet',
+      'Bits, bytes & data',
+      'How the internet works',
       'Cloud: what & why',
       'IaaS, PaaS & SaaS',
       'Public, private & hybrid',
       'Auto-scaling vs LAGZILLA',
+      'A quick history of the cloud',
       'VMs vs containers',
       'VirtualBox + Ubuntu lab',
       'Linux terminal basics',
@@ -41,7 +43,8 @@ export const SESSIONS = [
       'Routers, gateways & NAT',
       'Firewalls & cloud security groups',
       'Lab: ping & ip addr / ipconfig',
-      'Lab: nslookup, curl & traceroute'
+      'Lab: nslookup, curl & traceroute',
+      'Browser → server, the full journey'
     ],
     slug: 'current',
     folder: '02-current',
@@ -94,7 +97,8 @@ export const SESSIONS = [
       'Test access from another device',
       'Secure it: ports & credentials',
       'Check logs & fix one issue',
-      '3-minute live demo'
+      '3-minute live demo',
+      'Clean up every resource'
     ],
     slug: 'surge',
     folder: '04-surge',

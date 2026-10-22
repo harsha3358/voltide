@@ -333,11 +333,16 @@
 @media (max-width: 760px) {
   .split-2-1,
   .split-1-2 {
-    grid-template-columns: minmax(0, 1fr);
+    /* beats the custom column widths some demos set inline */
+    grid-template-columns: minmax(0, 1fr) !important;
   }
   .split-1-2 > :first-child {
     max-width: 200px;
     margin: 0 auto;
+  }
+  .split-1-2[style*="grid-template-columns"] > :first-child {
+    max-width: none;
+    margin: 0;
   }
 }
 
@@ -353,3 +358,137 @@
     grid-template-columns: minmax(0, 1fr);
   }
 }
+
+/* ---------- shared demo styles (terminal, matcher rows, checklists) ---------- */
+.term-sim {
+  background: #020812;
+  border-radius: 14px;
+  border: 1px solid var(--line);
+  font-family: var(--font-mono);
+  font-size: 14px;
+  overflow: hidden;
+}
+
+.term-sim__screen {
+  height: 340px;
+  overflow-y: auto;
+  padding: 14px 16px;
+  color: #cfe9ff;
+  white-space: pre-wrap;
+  word-break: break-word;
+  line-height: 1.55;
+}
+
+.term-sim__screen .p {
+  color: var(--ok);
+}
+
+.term-sim__screen .err {
+  color: #ff8da1;
+}
+
+.term-sim__screen .dir {
+  color: #6fb6ff;
+  font-weight: 600;
+}
+
+.term-sim__screen .hint {
+  color: var(--spark);
+}
+
+.term-sim__input {
+  display: flex;
+  gap: 8px;
+  padding: 10px 16px;
+  border-top: 1px solid var(--line);
+  background: rgba(125, 249, 255, 0.03);
+}
+
+.term-sim__input span {
+  color: var(--ok);
+  white-space: nowrap;
+}
+
+.term-sim__input input {
+  flex: 1;
+  min-width: 0;
+  background: transparent;
+  border: 0;
+  outline: none;
+  color: #fff;
+  font: inherit;
+  caret-color: var(--spark);
+}
+
+.missions {
+  display: grid;
+  gap: 6px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-size: 14px;
+}
+
+.missions li {
+  display: flex;
+  gap: 8px;
+  color: var(--text-soft);
+}
+
+.missions li.done {
+  color: var(--ok);
+}
+
+.missions code {
+  font-size: 12.5px;
+}
+
+.ethic {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 12px;
+  align-items: center;
+  padding: 14px 16px;
+  border-radius: 14px;
+  border: 1px solid var(--line);
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.ethic.right {
+  border-color: rgba(62, 240, 154, 0.5);
+}
+
+.ethic.wrong {
+  border-color: rgba(255, 77, 109, 0.5);
+}
+
+@media (max-width: 560px) {
+  .ethic {
+    grid-template-columns: 1fr;
+  }
+}
+
+.hyg {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  padding: 12px 14px;
+  border-radius: 12px;
+  border: 1px solid var(--line);
+  cursor: pointer;
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.hyg input {
+  width: 20px;
+  height: 20px;
+  margin-top: 2px;
+  accent-color: var(--ok);
+  flex: none;
+}
+
+.hyg.on {
+  border-color: rgba(62, 240, 154, 0.45);
+  background: rgba(62, 240, 154, 0.05);
+}
+

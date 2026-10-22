@@ -2464,3 +2464,41 @@ a.ext::after {
 .resume:hover {
   border-color: var(--spark);
 }
+
+.reset-panel {
+  margin-top: 36px;
+}
+
+.reset-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr));
+  gap: 12px;
+}
+
+.reset-opt {
+  display: grid;
+  gap: 6px;
+  padding: 16px 18px;
+  border-radius: 14px;
+  border: 1px solid var(--line-strong);
+  background: rgba(255, 255, 255, 0.03);
+  text-align: left;
+  cursor: pointer;
+}
+
+.reset-opt:hover {
+  border-color: var(--warn);
+}
+
+.reset-opt span {
+  color: var(--text-soft);
+  font-size: 14px;
+}
+
+.reset-opt--danger strong {
+  color: var(--danger);
+}
+
+.reset-opt--danger:hover {
+  border-color: var(--danger);
+}

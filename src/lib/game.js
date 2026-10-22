@@ -27,7 +27,29 @@ export const BADGES = {
   'terminal-tamer': ['Terminal Tamer', 'Completed all 8 terminal missions', 'terminal'],
   'combo-5': ['Combo x5', 'Five right answers in a row', 'fire'],
   'boss-1': ['LAGZILLA · Episode 1', 'Won the Episode 01 boss fight', 'target'],
-  'decoder-1': ['Decoder', 'Decrypted the Episode 01 transmission', 'lock']
+  'decoder-1': ['Decoder', 'Decrypted the Episode 01 transmission', 'lock'],
+  'dns-detective': ['DNS Detective', 'Followed a DNS lookup all the way', 'search'],
+  'gatekeeper': ['Gatekeeper', 'Configured a perfect security group', 'shield'],
+  'net-ninja': ['Net Ninja', 'Ran every network command in the simulator', 'terminal'],
+  'journey-pro': ['Journey Pro', 'Traced a browser all the way to the server', 'globe'],
+  'boss-2': ['LAGZILLA · Episode 2', 'Beat Packet Loss in Episode 02', 'target'],
+  'decoder-2': ['Decoder II', 'Decrypted the Episode 02 transmission', 'lock'],
+  'launcher': ['Launcher', 'Launched a perfectly configured EC2 instance', 'server'],
+  'compiler': ['Compiler Kid', 'Compiled and ran a C program', 'terminal'],
+  'paas-pilot': ['PaaS Pilot', 'Watched PaaS win the deploy race', 'cloud'],
+  'least-privilege': ['Least Privilege', 'Gave every role exactly the access it needs', 'key'],
+  'big-data': ['Big Data', 'Ran a MapReduce word count', 'chart'],
+  'bot-builder': ['Bot Whisperer', 'Got the campus chatbot to answer 4 intents', 'bot'],
+  'boss-3': ['LAGZILLA · Episode 3', 'Beat Out of Memory in Episode 03', 'target'],
+  'decoder-3': ['Decoder III', 'Decrypted the Episode 03 transmission', 'lock'],
+  'squad-up': ['Squad Up', 'Formed a team with roles', 'users'],
+  'page-maker': ['Page Maker', 'Built and customised a webpage', 'file'],
+  'fixer': ['Fixer', 'Solved the “why can’t my phone open it?” mystery', 'search'],
+  'log-detective': ['Log Detective', 'Found the bug in the server logs', 'file'],
+  'demo-day': ['Demo Day', 'Ran the full 3-minute demo timer', 'clock'],
+  'clean-sweep': ['Clean Sweep', 'Stopped and deleted every cloud resource', 'check'],
+  'boss-4': ['LAGZILLA · Final Form', 'Beat the final boss in Episode 04', 'target'],
+  'decoder-4': ['Decoder IV', 'Decrypted the Episode 04 transmission', 'lock']
 };
 
 const ADJ = ['Neon', 'Static', 'Monsoon', 'Quantum', 'Velvet', 'Ghost', 'Turbo', 'Pixel', 'Lunar', 'Cobalt', 'Storm', 'Glitch'];
@@ -113,10 +135,29 @@ export function setSound(on) {
   if (on) sfx('up');
 }
 
-export function resetGame() {
-  state = blank();
+// Reset score: XP, rank, badges, combos and awards go back to zero.
+// Mission progress, unlocked episodes and the handle are kept.
+export function resetScore() {
+  state = { ...blank(), handle: state.handle, sound: state.sound };
   save();
 }
+
+// Reset everything: wipes ALL activity on this browser so the next student
+// starts fresh: score, badges, missions done, decrypted fragments, unlocked
+// episodes, boss results, the resume pointer and the episode intros. Only the
+// device's lite-mode preference survives. Then it reloads to the home page.
+export function resetEverything() {
+  try {
+    Object.keys(localStorage)
+      .filter(k => k.startsWith('voltide:') && k !== 'voltide:lite')
+      .forEach(k => localStorage.removeItem(k));
+  } catch {}
+  state = blank();
+  window.location.hash = '#/';
+  window.location.reload();
+}
+
+export const resetGame = resetScore;
 
 export function useGame() {
   const [s, setS] = useState(state);

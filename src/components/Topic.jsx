@@ -18,7 +18,6 @@ const Topic = forwardRef(function Topic({ session, topic, index, done, onToggleD
           <div className="hook" data-reveal>
             <Volty size={52} mood={done ? 'happy' : 'idle'} />
             <p className="hook__bubble">
-              <b>Volty · why you should care</b>
               {topic.hook}
             </p>
           </div>

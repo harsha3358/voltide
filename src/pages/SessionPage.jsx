@@ -135,7 +135,7 @@ export default function SessionPage({ route }) {
           </div>
           <br />
           <span className="kicker">
-            Episode 0{session.number} · {session.element === 'water' ? '🌊' : '⚡'} {session.element}
+            Episode 0{session.number}
           </span>
           <h1 className="s-hero__title">
             <DecryptedText text={session.name} animateOn="view" sequential speed={40} revealDirection="start" />

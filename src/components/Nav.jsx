@@ -1,3 +1,4 @@
+import { useEffect, useRef } from 'react';
 import { SESSIONS } from '../../sessions/index.js';
 import { href } from '../lib/router.js';
 import { isUnlocked, useLockVersion } from '../lib/lock.js';
@@ -9,6 +10,13 @@ import { SoundToggle, XPMeter } from './XPMeter.jsx';
 export default function Nav({ route }) {
   useLockVersion();
   const { lite, setLite } = useEffects();
+  const strip = useRef(null);
+  // On phones the episode pills scroll sideways; keep the current one in view.
+  useEffect(() => {
+    const el = strip.current;
+    const pill = el?.querySelector('[aria-current="page"]');
+    if (pill && el.scrollWidth > el.clientWidth) el.scrollLeft += pill.getBoundingClientRect().left - el.getBoundingClientRect().left - 4;
+  }, [route.session]);
   return (
     <header className="nav">
       <div className="wrap nav__inner">
@@ -16,7 +24,7 @@ export default function Nav({ route }) {
           <Logo />
           <span>VOLTIDE</span>
         </a>
-        <nav className="nav__sessions" aria-label="Sessions">
+        <nav className="nav__sessions" aria-label="Sessions" ref={strip}>
           {SESSIONS.map(s => {
             const open = isUnlocked(s);
             const current = route.name === 'session' && route.session === s.number;

@@ -20,7 +20,7 @@ import { lastTopic } from '../components/Extras.jsx';
 const Lightning = lazy(() => import('../vendor/reactbits/Lightning/Lightning.jsx'));
 
 const HOW = [
-  { icon: Sparkle, title: 'TL;DR first', text: 'Every mission opens with one sentence. No jargon. We promise (we checked).' },
+  { icon: Sparkle, title: 'One line first', text: 'Every mission opens with one sentence. No jargon. We promise (we checked).' },
   { icon: Drop, title: 'Water & lightning analogies', text: 'Data flows like water, attacks hit like lightning. Your brain already gets it, it just doesn’t know yet.' },
   { icon: Bolt, title: 'Live demos, zero slides', text: 'Flip bits, crash a server on results day, auto-scale it back. Everything runs in your browser, so no surprise bills.' },
   { icon: Terminal, title: 'Labs you can’t mess up', text: 'Copy, paste, compare. The expected output is right there, inside your own isolated virtual lab.' },
@@ -94,7 +94,7 @@ function SessionCard({ s }) {
         {s.teaser.length > 6 && <li>+ {s.teaser.length - 6} more</li>}
       </ul>
       <div className="session-card__foot">
-        <span>{s.element === 'water' ? '🌊' : '⚡'} {s.element.toUpperCase()}</span>
+        <span />
         <span>
           {open ? 'Enter' : 'Preview'} <Arrow width="14" style={{ verticalAlign: '-2px' }} />
         </span>
