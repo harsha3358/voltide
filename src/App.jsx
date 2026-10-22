@@ -44,15 +44,6 @@ function Shell() {
       <main key={pageKey}>{page}</main>
       <div className="grain" aria-hidden="true" />
       <Toasts />
-      <footer className="footer">
-        <div className="wrap">
-          <span>VOLTIDE · Cloud computing for people who skip intros (we kept this one short)</span>
-          <span>
-            Effects: <a href="https://reactbits.dev" target="_blank" rel="noreferrer">React Bits</a> ·{' '}
-            <a href="https://gsap.com" target="_blank" rel="noreferrer">GSAP</a> · Stop what you start.
-          </span>
-        </div>
-      </footer>
     </div>
   );
 }

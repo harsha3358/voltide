@@ -22,7 +22,7 @@ Locked until the facilitator shares the code (see [`facilitator/README.md`](../.
 | 01 | Form your squad | Squad builder | `#/session/4/topic/teams` |
 | 02 | Build the page | Page builder with live preview + download | `#/session/4/topic/build-page` |
 | 03 | Deploy with nginx | Deploy pipeline + **Lab:** EC2 + nginx + scp | `#/session/4/topic/deploy` |
-| 04 | Test public access | "Why can't my friend open it?" tree + **Lab** | `#/session/4/topic/test-access` |
+| 04 | Test public access | **3D layers: follow the request, break a layer** + "Why can't my friend open it?" tree + **Lab** | `#/session/4/topic/test-access` |
 | 05 | Secure it | Security review + **Lab:** ufw, updates, budget | `#/session/4/topic/secure-it` |
 | 06 | Logs & troubleshooting | Log detective + **Lab:** live logs | `#/session/4/topic/logs-troubleshoot` |
 | 07 | Live demo | Rubric + 3-minute demo timer | `#/session/4/topic/live-demo` |

@@ -20,11 +20,11 @@
 | 02 | Bits, bytes & data | Binary light switches | `#/session/1/topic/digital-basics` |
 | 03 | How the internet works | Packet pipes | `#/session/1/topic/how-internet-works` |
 | 04 | Cloud: what & why | Data-centre photo | `#/session/1/topic/cloud-basics` |
-| 05 | IaaS, PaaS & SaaS | Waterline stack + model matcher | `#/session/1/topic/service-models` |
+| 05 | IaaS, PaaS & SaaS | Waterline stack + **3D layered stack explained four ways** (real tech, pizza, getting around, a place to live) with events, side-by-side view and a quick-fire round + model matcher | `#/session/1/topic/service-models` |
 | 06 | Public, private & hybrid | Deployment cards | `#/session/1/topic/deployment-models` |
 | 07 | Scaling & pay-as-you-go | Results-day auto-scaling simulator | `#/session/1/topic/elasticity` |
 | 08 | Cloud history | Timeline | `#/session/1/topic/cloud-history` |
-| 09 | VMs vs containers | Stack diagram | `#/session/1/topic/vms-containers` |
+| 09 | VMs vs containers | Stack diagram + **3D layers: start apps as VMs or containers** | `#/session/1/topic/vms-containers` |
 | 10 | Set up your Ubuntu VM | **Lab:** VirtualBox / VMware + Ubuntu | `#/session/1/topic/virtual-lab` |
 | 11 | Linux terminal basics | Practice terminal + **Lab** | `#/session/1/topic/linux-terminal` |
 | 12 | AWS, Azure & GCP tour | Equivalents table (all linked) | `#/session/1/topic/cloud-tour` |

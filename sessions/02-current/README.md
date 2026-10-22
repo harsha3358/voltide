@@ -27,7 +27,7 @@ Locked until the facilitator shares the code (see [`facilitator/README.md`](../.
 | 06 | Firewalls & security groups | Security group simulator + **Lab:** ufw | `#/session/2/topic/firewalls` |
 | 07 | Lab: ping & ip addr | Network lab simulator (Linux / Windows) + **Lab** | `#/session/2/topic/lab-ping-ip` |
 | 08 | Lab: nslookup, curl, traceroute | **Lab** | `#/session/2/topic/lab-dns-curl` |
-| 09 | Browser → server | The full journey, step by step | `#/session/2/topic/browser-to-server` |
+| 09 | Browser → server | **3D network layers: wrap, send, unwrap** + the full journey, step by step | `#/session/2/topic/browser-to-server` |
 
 Ends with the **PACKET LOSS boss fight** and the decrypted secret transmission. Badges: DNS Detective, Gatekeeper, Net Ninja, Journey Pro, plus the boss and decoder badges.
 

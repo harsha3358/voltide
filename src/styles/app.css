@@ -160,6 +160,7 @@ main {
   position: relative;
   z-index: 2;
   overflow-x: clip;
+  padding-bottom: 56px;
 }
 
 /* ---------- backdrop ---------- */
@@ -804,22 +805,6 @@ main {
   color: var(--text-soft);
   font-size: 15px;
   margin: 0;
-}
-
-.footer {
-  position: relative;
-  z-index: 2;
-  padding: 40px 0 60px;
-  border-top: 1px solid var(--line);
-  color: var(--muted);
-  font-size: 14px;
-}
-
-.footer .wrap {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  gap: 16px;
 }
 
 /* ---------- session page ---------- */
@@ -1934,8 +1919,7 @@ textarea.input {
   .backdrop,
   .grain,
   .toc,
-  .demo,
-  .footer {
+  .demo {
     display: none !important;
   }
   body {
@@ -2574,10 +2558,6 @@ a.ext::after {
 
 .hero-split .s-hero__title {
   font-size: clamp(3rem, 8vw, 7rem);
-}
-
-.stack3d {
-  height: clamp(300px, 46vw, 440px);
 }
 
 .hero-split .scene3d canvas {

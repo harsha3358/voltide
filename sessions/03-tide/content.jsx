@@ -7,6 +7,7 @@ import InstanceSizer from './demos/InstanceSizer.jsx';
 import CPlayground from './demos/CPlayground.jsx';
 import MiniWebApp from './demos/MiniWebApp.jsx';
 import DeployRace from './demos/DeployRace.jsx';
+import WhoDoesWhat3D from './visuals/WhoDoesWhat3D.jsx';
 import StorageTypes from './visuals/StorageTypes.jsx';
 import AccessRules from './demos/AccessRules.jsx';
 import MapReduceViz from './demos/MapReduceViz.jsx';
@@ -235,6 +236,7 @@ export default {
         ['Cloud Shell', 'a free terminal in your browser, inside the Google Cloud console.'],
         ['Version', 'every deploy creates a new version you can roll back to.']
       ],
+      visual: { caption: 'Layer by layer: EC2 vs App Engine', note: 'fire an event at both', el: <WhoDoesWhat3D /> },
       demo: { id: 'demo-race', title: 'DEPLOY RACE', hint: 'IaaS vs PaaS', intro: 'Two teams deploy the same app. One builds the server first; one hands code to a PaaS. Start the race.', el: <DeployRace /> },
       lab: {
         id: 'lab-gae',

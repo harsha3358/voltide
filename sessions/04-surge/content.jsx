@@ -6,6 +6,7 @@ import TeamBuilder from './demos/TeamBuilder.jsx';
 import PageBuilder from './demos/PageBuilder.jsx';
 import DeployPipeline from './visuals/DeployPipeline.jsx';
 import TroubleTree from './demos/TroubleTree.jsx';
+import RequestPath3D from './visuals/RequestPath3D.jsx';
 import ConfigReview from './demos/ConfigReview.jsx';
 import LogDetective from './demos/LogDetective.jsx';
 import DemoTimer from './demos/DemoTimer.jsx';
@@ -171,6 +172,7 @@ export default {
         ['Timeout', 'no reply at all: usually a firewall rule.'],
         ['Connection refused', 'reached the server, but nothing listens on that port.']
       ],
+      visual: { caption: 'Layer by layer: follow the request', note: 'break a layer, then send', el: <RequestPath3D /> },
       demo: { id: 'demo-trouble', title: 'WHY CAN’T MY FRIEND OPEN IT?', hint: 'find the cause', intro: 'The most common deployment mystery, as a decision tree. Walk it like an engineer: one check at a time.', el: <TroubleTree /> },
       lab: {
         id: 'lab-test',

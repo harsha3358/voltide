@@ -85,6 +85,12 @@ local VM. **Stop or delete temporary cloud resources after the workshop.**
   missions has its own colour pair and animated background pattern (circuit, waves, hex, rain, topo,
   dots, bolts, grid, bubbles, chevrons, stars, plus), and the 3D ocean behind the page blends to that
   mission's colours as you scroll into it. Override per mission with `theme: { a, b, motif }`.
+- **Layered 3D demonstrations** (`src/three/scenes/layers.js`): stacks of layers students can poke.
+  IaaS / PaaS / SaaS explained four ways (real tech · pizza · getting around · a place to live), each
+  with its own colours, brands and events, one model at a time or all four side by side, plus a
+  quick-fire round · VMs vs containers (start apps, watch them boot) · network layers (wrap, send,
+  unwrap) · EC2 vs App Engine under the same events · the request path from phone to `index.html`
+  (break a layer, see the real browser error).
 - **3D motion scenes** (`src/three/`, three.js, lazy-loaded, paused off-screen, off in lite mode): home
   globe of cloud regions with packet arcs · Ep 01 cloud of light over server racks with lightning ·
   Ep 02 router mesh with pings hopping you → server · Ep 03 data-centre aisle fly-through with VMs

@@ -6,6 +6,7 @@ import MythCards from './demos/MythCards.jsx';
 import BitSwitches from './demos/BitSwitches.jsx';
 import PacketPipes from './visuals/PacketPipes.jsx';
 import Stack3D from './visuals/Stack3D.jsx';
+import VmContainer3D from './visuals/VmContainer3D.jsx';
 import ServiceModels from './visuals/ServiceModels.jsx';
 import ModelMatcher from './demos/ModelMatcher.jsx';
 import DeployModels from './visuals/DeployModels.jsx';
@@ -203,7 +204,7 @@ export default {
       body: ['Pick a model below and watch the provider’s **waterline** rise up the stack. Everything above the waterline is still your job.'],
       visuals: [
         { caption: 'Service models · who manages which layer?', note: 'pick a model', el: <ServiceModels /> },
-        { caption: 'The same stack, in 3D', note: 'pick a model', el: <Stack3D /> }
+        { caption: 'Layer by layer: who runs what?', note: 'pick a style, then a model', el: <Stack3D /> }
       ],
       demo: { id: 'demo-models', title: 'MODEL MATCHER', hint: '6 real situations', intro: 'Match each situation to IaaS, PaaS, SaaS or on-premises. Get all six for a badge.', el: <ModelMatcher /> },
       check: {
@@ -304,7 +305,10 @@ export default {
         ['Container', 'a lightweight app package (e.g. Docker).'],
         ['Kernel', 'the core of the operating system that talks to hardware.']
       ],
-      visual: { caption: 'Virtual machines vs containers', el: <VmVsContainer /> },
+      visuals: [
+        { caption: 'Virtual machines vs containers', el: <VmVsContainer /> },
+        { caption: 'Layer by layer: start some apps', note: 'switch VM ↔ container', el: <VmContainer3D /> }
+      ],
       points: [
         '**VMs**: stronger isolation, any OS, but heavier and take minutes to boot. Great for labs and cloud servers (EC2).',
         '**Containers**: start in seconds and pack many per server. Great for modern web apps.',

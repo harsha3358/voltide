@@ -20,7 +20,7 @@ Open [What is the cloud, really?](#/session/1/topic/welcome). Ask the class whic
 
 ## Segment 3 · Cloud computing: what and why
 1. [Cloud: what & why](#/session/1/topic/cloud-basics): on-demand, pay-as-you-go, regions.
-2. [IaaS, PaaS & SaaS](#/session/1/topic/service-models): click On-prem → IaaS → PaaS → SaaS and ask what stays *your* job each time. Then pairs race the **model matcher**.
+2. [IaaS, PaaS & SaaS](#/session/1/topic/service-models): click On-prem → IaaS → PaaS → SaaS and ask what stays *your* job each time. Then open the **3D layered stack** below it: start with *Real tech*, then switch to *Pizza*, *Getting around* and *A place to live* so every student finds an analogy that clicks. Fire an event ("out of cheese", "fuel tank empty") and ask "whose problem is it?" before revealing. Switch to **All four side by side** for the classic chart, and finish with the **quick-fire round**. Then pairs race the **model matcher**.
 3. [Public, private & hybrid](#/session/1/topic/deployment-models).
 4. [Scaling & pay-as-you-go](#/session/1/topic/elasticity): run the **results-day simulator** in "own servers" mode first (it crashes), then cloud mode. Ask: what happens to the bill at 3 AM?
 5. [Cloud history](#/session/1/topic/cloud-history) as a quick story.

@@ -10,7 +10,7 @@ const SCENES = {
   network: () => import('../three/scenes/network.js'),
   rack: () => import('../three/scenes/rack.js'),
   city: () => import('../three/scenes/city.js'),
-  stack: () => import('../three/scenes/stack.js')
+  layers: () => import('../three/scenes/layers.js')
 };
 
 export default function Scene3D({ name, params = {}, className = '', label, hint }) {

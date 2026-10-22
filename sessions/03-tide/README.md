@@ -23,7 +23,7 @@ Locked until the facilitator shares the code (see [`facilitator/README.md`](../.
 | 02 | Check VM resources | Instance sizer + **Lab:** `uname`, `nproc`, `free`, `df`, `top` | `#/session/3/topic/vm-resources` |
 | 03 | Run a C program | C playground + **Lab:** gcc on EC2 | `#/session/3/topic/c-program` |
 | 04 | Run a web app | Mini web app + **Lab:** Flask on port 5000 | `#/session/3/topic/web-app` |
-| 05 | Deploy with a PaaS | IaaS vs PaaS race + **Lab:** App Engine | `#/session/3/topic/app-engine` |
+| 05 | Deploy with a PaaS | **3D layers: EC2 vs App Engine under pressure** + IaaS vs PaaS race + **Lab:** App Engine | `#/session/3/topic/app-engine` |
 | 06 | Storage & access | Storage types + least-privilege grid + **Lab:** S3 in CloudShell | `#/session/3/topic/ec2-storage-access` |
 | 07 | Serverless & big data | Upload → function + MapReduce word count + **Lab:** Linux pipes | `#/session/3/topic/serverless-hadoop` |
 | 08 | Databases & chatbots | SQL vs NoSQL + campus chatbot + **Lab:** SQLite | `#/session/3/topic/databases-chatbots` |

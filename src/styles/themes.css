@@ -451,3 +451,334 @@ html[data-lite='1'] .topic__orb {
     padding-bottom: 80px;
   }
 }
+
+/* ---- Layered 3D demos ---- */
+:root {
+  --l-cloud: #53eafd;
+  --l-you: #ffdf20;
+  --l-shared: #c4b5fd;
+  --l-net: #2b7fff;
+  --l-app: #ff8904;
+  --l-bad: #ff4d6d;
+}
+
+.layer-demo {
+  display: grid;
+  grid-template-columns: minmax(0, 1.5fr) minmax(240px, 1fr);
+  gap: 14px;
+  align-items: stretch;
+}
+
+.layer-demo__scene {
+  min-height: 420px;
+  height: 100%;
+  border: 1px solid var(--line);
+}
+
+.layer-demo__panel {
+  display: flex;
+  flex-direction: column;
+}
+
+.layer-demo__panel .missions {
+  font-size: 14px;
+}
+
+.layer-demo__score {
+  font: 600 14px var(--font-mono);
+  color: var(--text-soft);
+}
+
+.layer-demo__score span {
+  font-size: 22px;
+}
+
+.layer-demo__verdict {
+  margin: 12px 0 0;
+  padding: 12px 14px;
+  border-radius: 12px;
+  border: 1px solid var(--line);
+  font-size: 15px;
+}
+
+.layer-demo__verdict.is-cloud {
+  border-color: color-mix(in srgb, var(--l-cloud) 55%, transparent);
+  background: color-mix(in srgb, var(--l-cloud) 8%, transparent);
+}
+
+.layer-demo__verdict.is-you {
+  border-color: color-mix(in srgb, var(--l-bad) 55%, transparent);
+  background: color-mix(in srgb, var(--l-bad) 8%, transparent);
+}
+
+.layer-demo__verdict.is-ok {
+  border-color: color-mix(in srgb, var(--ok) 55%, transparent);
+  background: color-mix(in srgb, var(--ok) 8%, transparent);
+}
+
+.layer-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin: 10px 0 0;
+  font-size: 13px;
+  color: var(--text-soft);
+}
+
+.layer-legend span {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.layer-legend i {
+  width: 12px;
+  height: 12px;
+  border-radius: 3px;
+}
+
+@media (max-width: 860px) {
+  .layer-demo {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .layer-demo__scene {
+    min-height: 360px;
+  }
+}
+
+.phone-screen {
+  margin-top: 12px;
+  border-radius: 16px;
+  border: 1px solid var(--line-strong);
+  background: #f4f6f8;
+  color: #1f2933;
+  overflow: hidden;
+}
+
+.phone-screen__bar {
+  padding: 7px 12px;
+  background: #e2e8f0;
+  font: 500 12px var(--font-mono);
+  color: #475569;
+}
+
+.phone-screen__body {
+  display: grid;
+  gap: 4px;
+  min-height: 92px;
+  padding: 14px;
+  align-content: center;
+  font-size: 14px;
+}
+
+.phone-screen__body strong {
+  font-size: 17px;
+}
+
+.phone-screen__body--wait {
+  color: #64748b;
+}
+
+.phone-screen.is-bad .phone-screen__body span {
+  font-family: var(--font-mono);
+  font-size: 12.5px;
+  color: #64748b;
+}
+
+/* ---- IaaS / PaaS / SaaS explained four ways ---- */
+.svc__styles {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.svc__style {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 14px;
+  border-radius: 14px;
+  border: 1px solid var(--line);
+  background: rgba(255, 255, 255, 0.03);
+  color: var(--text-soft);
+  font: 600 15px var(--font-body);
+  cursor: pointer;
+  transition: transform 0.2s, border-color 0.2s, background 0.2s;
+}
+
+.svc__style span {
+  font-size: 22px;
+}
+
+.svc__style:hover {
+  transform: translateY(-2px);
+}
+
+.svc__style.is-on {
+  color: #fff;
+  border-color: var(--an-cloud);
+  background: linear-gradient(120deg, color-mix(in srgb, var(--an-cloud) 22%, transparent), color-mix(in srgb, var(--an-you) 14%, transparent));
+  box-shadow: 0 0 24px color-mix(in srgb, var(--an-cloud) 25%, transparent);
+}
+
+.svc__models {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 6px;
+  margin-bottom: 8px;
+}
+
+.svc__model {
+  display: grid;
+  gap: 2px;
+  padding: 9px 10px;
+  text-align: left;
+  border-radius: 12px;
+  border: 1px solid var(--line);
+  background: rgba(2, 8, 18, 0.6);
+  color: var(--text);
+  font: 600 14px var(--font-body);
+  cursor: pointer;
+}
+
+.svc__model small {
+  font: 600 10.5px var(--font-mono);
+  letter-spacing: 0.14em;
+  color: var(--muted);
+}
+
+.svc__model.is-on {
+  border-color: var(--an-cloud);
+  background: color-mix(in srgb, var(--an-cloud) 16%, rgba(2, 8, 18, 0.8));
+}
+
+.svc__model.is-on small {
+  color: var(--an-cloud);
+}
+
+.svc__card {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  border-color: color-mix(in srgb, var(--an-cloud) 45%, transparent);
+}
+
+.svc__card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  opacity: 0.16;
+  pointer-events: none;
+}
+
+.svc__badge {
+  align-self: flex-start;
+  padding: 5px 11px;
+  border-radius: 999px;
+  font: 700 12px var(--font-mono);
+  letter-spacing: 0.12em;
+  color: #04101f;
+  background: linear-gradient(100deg, var(--an-cloud), var(--an-you));
+}
+
+.svc__chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.svc__chip {
+  padding: 4px 10px;
+  border-radius: 999px;
+  border: 1px solid color-mix(in srgb, var(--an-cloud) 45%, transparent);
+  font-size: 13px;
+  color: var(--text);
+  text-decoration: none;
+}
+
+a.svc__chip:hover {
+  background: color-mix(in srgb, var(--an-cloud) 15%, transparent);
+}
+
+.svc__split {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-top: 12px;
+}
+
+.svc__split .missions {
+  font-size: 13.5px;
+}
+
+.svc__verdicts {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 6px;
+}
+
+.svc__verdicts .layer-demo__verdict {
+  display: grid;
+  gap: 2px;
+  margin-top: 10px;
+  font-size: 13.5px;
+}
+
+.svc__quiz {
+  margin-top: 18px;
+  padding: 16px;
+  border-radius: 16px;
+  border: 1px dashed color-mix(in srgb, var(--an-you) 50%, transparent);
+  background: color-mix(in srgb, var(--an-you) 5%, transparent);
+}
+
+.svc__quiz .btn.is-right {
+  border-color: var(--ok);
+  color: var(--ok);
+}
+
+.svc__quiz .btn.is-wrong {
+  border-color: var(--danger);
+  color: var(--danger);
+}
+
+/* Each style gets its own texture on the explainer card. */
+.svc--tech .svc__card::before {
+  background: repeating-linear-gradient(0deg, var(--an-cloud) 0 1px, transparent 1px 22px), repeating-linear-gradient(90deg, var(--an-cloud) 0 1px, transparent 1px 22px);
+  opacity: 0.08;
+}
+
+.svc--pizza .svc__card::before {
+  background: repeating-conic-gradient(var(--an-cloud) 0 25%, transparent 0 50%) 0 0 / 34px 34px;
+  opacity: 0.1;
+}
+
+.svc--ride .svc__card::before {
+  background: repeating-linear-gradient(90deg, var(--an-you) 0 26px, transparent 26px 52px) center / 100% 4px no-repeat, repeating-linear-gradient(135deg, var(--an-cloud) 0 2px, transparent 2px 18px);
+  opacity: 0.14;
+}
+
+.svc--home .svc__card::before {
+  background: linear-gradient(var(--an-cloud) 2px, transparent 2px) 0 0 / 48px 24px, linear-gradient(90deg, var(--an-cloud) 2px, transparent 2px) 0 0 / 48px 48px, linear-gradient(90deg, var(--an-cloud) 2px, transparent 2px) 24px 24px / 48px 48px;
+  opacity: 0.1;
+}
+
+@media (max-width: 760px) {
+  .svc__models,
+  .svc__verdicts {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .svc__split {
+    grid-template-columns: 1fr;
+  }
+}
+
+.layer-demo--wide {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.layer-demo--wide .layer-demo__scene {
+  min-height: 460px;
+}

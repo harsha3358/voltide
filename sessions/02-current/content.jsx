@@ -12,6 +12,7 @@ import Encapsulation from './visuals/Encapsulation.jsx';
 import SecurityGroupSim from './demos/SecurityGroupSim.jsx';
 import NetTerminal from './demos/NetTerminal.jsx';
 import JourneyStepper from './demos/JourneyStepper.jsx';
+import NetLayers3D from './visuals/NetLayers3D.jsx';
 
 export default {
   episode: {
@@ -345,6 +346,7 @@ export default {
         type: 'water',
         text: 'One drop of water travelling from your tap, through your building’s pipes, the city mains, a treatment plant’s gate, and finally into the reservoir, then back.'
       },
+      visual: { caption: 'Layer by layer: wrap, send, unwrap', note: 'send a request, then a reply', el: <NetLayers3D /> },
       demo: { id: 'demo-journey', title: 'THE FULL JOURNEY', hint: 'step through', intro: 'Step through all eight stages. Then try explaining them to the person next to you without looking.', el: <JourneyStepper /> },
       links: [
         { href: 'https://developer.mozilla.org/en-US/docs/Web/HTTP/Overview', label: 'How HTTP works (MDN)' }
