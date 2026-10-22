@@ -20,6 +20,7 @@ export const SESSIONS = [
       'Cloud account safety'
     ],
     slug: 'spark',
+    hero3d: { scene: 'cloud', label: 'A 3D cloud of light floating above glowing server racks, with data streaming up into it', hint: 'tap · strike lightning' },
     folder: '01-spark',
     name: 'SPARK',
     title: 'Cloud from Zero + Setup',
@@ -47,6 +48,7 @@ export const SESSIONS = [
       'Browser → server, the full journey'
     ],
     slug: 'current',
+    hero3d: { scene: 'network', label: 'A 3D mesh of routers with packets hopping from your laptop to a cloud server', hint: 'tap · send a ping' },
     folder: '02-current',
     name: 'CURRENT',
     title: 'Computer Networks',
@@ -74,6 +76,7 @@ export const SESSIONS = [
       'Quick demos: databases & chatbots'
     ],
     slug: 'tide',
+    hero3d: { scene: 'rack', label: 'A 3D fly-through of a data-centre aisle with virtual machines booting out of the racks', hint: 'tap · launch a VM' },
     folder: '03-tide',
     name: 'TIDE',
     title: 'Cloud Lab Practicals',
@@ -101,6 +104,7 @@ export const SESSIONS = [
       'Clean up every resource'
     ],
     slug: 'surge',
+    hero3d: { scene: 'city', label: 'A 3D night city lighting up as a deployment wave spreads from a server tower', hint: 'tap · deploy again' },
     folder: '04-surge',
     name: 'SURGE',
     title: 'Cloud Deployment Challenge',

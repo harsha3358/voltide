@@ -16,6 +16,7 @@ import GlitchText from '../vendor/reactbits/GlitchText/GlitchText.jsx';
 import { Arrow, Bolt, Book, Check, Drop, Flag, Lock, Play, Search, Shield, Sparkle, Terminal, Unlock } from '../components/Icons.jsx';
 import { BADGES } from '../lib/game.js';
 import { lastTopic } from '../components/Extras.jsx';
+import Scene3D from '../components/Scene3D.jsx';
 
 const Lightning = lazy(() => import('../vendor/reactbits/Lightning/Lightning.jsx'));
 
@@ -121,8 +122,8 @@ export default function Home() {
             </Suspense>
           </div>
         )}
-        <div className="wrap" style={{ position: 'relative' }}>
-          <span className="kicker">B.Tech · Cloud Computing · Zero experience, zero judgement</span>
+        <div className="wrap hero-split" style={{ position: 'relative' }}>
+          <div>
           <h1 className="hero__title">
             <DecryptedText text="VOLTIDE" animateOn="view" sequential speed={45} revealDirection="center" characters="01⚡~≈#@%&" />
           </h1>
@@ -161,6 +162,8 @@ export default function Home() {
               <Play width="16" height="16" /> Resume Episode 0{last.session}: <strong>{last.title}</strong>
             </a>
           )}
+          </div>
+          <Scene3D name="globe" label="A 3D globe of cloud regions with data packets flying between them" hint="tap · burst from Mumbai" />
         </div>
         <div className="scroll-cue" aria-hidden="true">
           <i />

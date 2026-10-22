@@ -6,6 +6,7 @@ import { useProgress } from '../lib/progress.js';
 import { useReveal } from '../lib/useReveal.js';
 import { scrollToElement, scrollToTop, ScrollTrigger } from '../lib/motion.js';
 import Backdrop from '../components/Backdrop.jsx';
+import Scene3D from '../components/Scene3D.jsx';
 import LockGate from '../components/LockGate.jsx';
 import Topic from '../components/Topic.jsx';
 import SessionCircuit from '../components/SessionCircuit.jsx';
@@ -134,6 +135,8 @@ export default function SessionPage({ route }) {
             <a href={href.guide(session.number)}>Field guide</a>
           </div>
           <br />
+          <div className="hero-split">
+          <div>
           <span className="kicker">
             Episode 0{session.number}
           </span>
@@ -154,6 +157,9 @@ export default function SessionPage({ route }) {
             <a className="btn btn--ghost" href="#session-map" onClick={e => (e.preventDefault(), scrollToElement(document.getElementById('session-map')))}>
               <Map /> Mission map
             </a>
+          </div>
+          </div>
+          {session.hero3d && <Scene3D name={session.hero3d.scene} params={{ accent: session.accent, accent2: session.accent2 }} label={session.hero3d.label} hint={session.hero3d.hint} />}
           </div>
           {content.transmission && <Transmission session={session} phrase={content.transmission} topics={topics} isDone={progress.isDone} villain={content.boss?.name} />}
           {content.outcomes && (

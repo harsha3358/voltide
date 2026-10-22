@@ -29,6 +29,8 @@
 | ↑ (bottom-left) | Back to top |
 | Copy mission link | Share a mission with your squad |
 
+The 3D scene at the top of each episode is interactive: move your mouse to look around, tap it to make something happen. On slow PCs, press ⚡ for lite mode and it switches off.
+
 Any link marked **↗** opens the real website (VirtualBox, AWS Console, Google App Engine…) in a new tab.
 
 ## Starting over

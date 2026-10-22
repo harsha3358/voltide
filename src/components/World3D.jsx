@@ -138,7 +138,7 @@ export default function World3D({ palette = {}, mood = 'spark', opacity = 1 }) {
       new THREE.MeshBasicMaterial({ color: C.flash, transparent: true, opacity: 0.85, blending: THREE.AdditiveBlending })
     );
     core.add(outer, inner, heart);
-    core.position.set(9, 7, -14);
+    core.position.set(-1, 12, -22);
     core.scale.setScalar(M.core);
     scene.add(core);
 
@@ -220,7 +220,7 @@ export default function World3D({ palette = {}, mood = 'spark', opacity = 1 }) {
       core.rotation.x = t * 0.18;
       core.rotation.y = t * 0.27;
       inner.rotation.y = -t * 0.6;
-      core.position.y = 7 + Math.sin(t * 0.7) * 0.8;
+      core.position.y = 12 + Math.sin(t * 0.7) * 0.8;
       heart.scale.setScalar(1 + Math.sin(t * 3) * 0.12 + flashLight.v * 0.6);
 
       const sp = sparkGeo.attributes.position.array;

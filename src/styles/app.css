@@ -2502,3 +2502,85 @@ a.ext::after {
 .reset-opt--danger:hover {
   border-color: var(--danger);
 }
+
+/* 3D motion scenes (src/three) */
+.scene3d {
+  position: relative;
+  min-height: 260px;
+  border-radius: 24px;
+  overflow: hidden;
+  background: radial-gradient(60% 60% at 50% 55%, color-mix(in srgb, var(--accent) 16%, transparent), transparent 70%);
+}
+
+.scene3d canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  opacity: 0;
+  transition: opacity 1.2s ease;
+  cursor: pointer;
+  touch-action: pan-y;
+}
+
+.scene3d canvas.is-ready {
+  opacity: 1;
+}
+
+.scene3d--lite {
+  background: radial-gradient(55% 55% at 50% 50%, color-mix(in srgb, var(--accent) 22%, transparent), transparent 70%);
+}
+
+.scene3d__hint {
+  position: absolute;
+  right: 14px;
+  bottom: 12px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--muted);
+  pointer-events: none;
+}
+
+.hero-split {
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+  gap: clamp(16px, 3vw, 40px);
+  align-items: center;
+}
+
+.hero-split .scene3d {
+  height: clamp(380px, 52vh, 560px);
+  background: none;
+}
+
+@media (max-width: 900px) {
+  .hero-split {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .hero-split .scene3d {
+    height: 320px;
+    order: -1;
+    margin: -10px -16px 0;
+    border-radius: 0;
+  }
+}
+
+.hero-split .hero__title {
+  font-size: clamp(3.4rem, 9vw, 8.4rem);
+}
+
+.hero-split .s-hero__title {
+  font-size: clamp(3rem, 8vw, 7rem);
+}
+
+.stack3d {
+  height: clamp(300px, 46vw, 440px);
+}
+
+.hero-split .scene3d canvas {
+  -webkit-mask-image: radial-gradient(ellipse 62% 60% at 50% 50%, #000 55%, transparent 100%);
+  mask-image: radial-gradient(ellipse 62% 60% at 50% 50%, #000 55%, transparent 100%);
+}

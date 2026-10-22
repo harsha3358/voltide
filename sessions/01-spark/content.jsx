@@ -5,6 +5,7 @@
 import MythCards from './demos/MythCards.jsx';
 import BitSwitches from './demos/BitSwitches.jsx';
 import PacketPipes from './visuals/PacketPipes.jsx';
+import Stack3D from './visuals/Stack3D.jsx';
 import ServiceModels from './visuals/ServiceModels.jsx';
 import ModelMatcher from './demos/ModelMatcher.jsx';
 import DeployModels from './visuals/DeployModels.jsx';
@@ -200,7 +201,10 @@ export default {
         ['On-premises', 'everything owned and run in your own building.']
       ],
       body: ['Pick a model below and watch the provider’s **waterline** rise up the stack. Everything above the waterline is still your job.'],
-      visual: { caption: 'Service models · who manages which layer?', note: 'pick a model', el: <ServiceModels /> },
+      visuals: [
+        { caption: 'Service models · who manages which layer?', note: 'pick a model', el: <ServiceModels /> },
+        { caption: 'The same stack, in 3D', note: 'pick a model', el: <Stack3D /> }
+      ],
       demo: { id: 'demo-models', title: 'MODEL MATCHER', hint: '6 real situations', intro: 'Match each situation to IaaS, PaaS, SaaS or on-premises. Get all six for a badge.', el: <ModelMatcher /> },
       check: {
         q: 'Your team deploys a website on an **IaaS** virtual machine. Who installs the OS updates?',

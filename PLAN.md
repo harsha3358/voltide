@@ -81,6 +81,11 @@ local VM. **Stop or delete temporary cloud resources after the workshop.**
 - **3D background:** custom three.js *Voltide World*: a point-cloud ocean with waves, lightning strikes
   that send ripple rings across the water (click anywhere to strike), a floating wireframe core and
   rising sparks; the camera follows the pointer and dives as you scroll. Lite mode swaps it for CSS.
+- **3D motion scenes** (`src/three/`, three.js, lazy-loaded, paused off-screen, off in lite mode): home
+  globe of cloud regions with packet arcs · Ep 01 cloud of light over server racks with lightning ·
+  Ep 02 router mesh with pings hopping you → server · Ep 03 data-centre aisle fly-through with VMs
+  booting · Ep 04 city lighting up as the deploy wave spreads · plus a 3D IaaS/PaaS/SaaS layer stack in
+  Ep 01. Every scene reacts to the pointer and to taps.
 - **React Bits effects:** Lightning (home hero), ElectricBorder, ClickSpark, DecryptedText,
   GlitchText, ShinyText, TextType, CountUp, SpotlightCard.
 - **Not reachable from the build environment:** the Figma MCP (proxy refused, 403) and the 21st.dev
