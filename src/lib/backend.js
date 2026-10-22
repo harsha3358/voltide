@@ -1,7 +1,10 @@
 // Talks to the Google Apps Script web app in google-sheets/Code.gs.
-// Set its URL as VITE_SHEETS_API (Vercel → Settings → Environment Variables,
-// or a local .env file). Without it, the site runs with no login, as before.
-const API = String(import.meta.env.VITE_SHEETS_API || '').trim();
+// The deployed web app URL is built in below. To point at a different
+// deployment, set VITE_SHEETS_API (Vercel → Settings → Environment Variables,
+// or a local .env file). Set VITE_SHEETS_API=off to run with no login.
+const DEPLOYED_API = 'https://script.google.com/macros/s/AKfycbx18JqnShcj5Uxtyv5fNXEIEqGodS3t06-aObOID50a32GiVQx23evUs8uut-tgynFlUA/exec';
+const configured = String(import.meta.env.VITE_SHEETS_API ?? '').trim();
+const API = configured.toLowerCase() === 'off' ? '' : configured || DEPLOYED_API;
 export const backendEnabled = Boolean(API);
 
 export class ApiError extends Error {

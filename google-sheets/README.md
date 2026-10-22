@@ -56,21 +56,17 @@ On the Students tab, three columns are **hidden on purpose**: the password hash,
 
 ## Step 4 · Connect the website
 
-**On Vercel** (the live site, <https://voltide.vercel.app/>):
-1. Open the project on Vercel → **Settings → Environment Variables**.
-2. Add a variable:
-   - **Key:** `VITE_SHEETS_API`
-   - **Value:** the Web app URL from step 3
-   - **Environments:** Production and Preview
-3. Go to **Deployments**, open the ⋯ menu on the latest one, and click **Redeploy**. The variable is read when the site is built, so a redeploy is required.
-
-**On your own laptop** (for testing): create a file called `.env.local` in the project folder containing:
+**Already done for this project.** The deployed web app URL is built into [`src/lib/backend.js`](../src/lib/backend.js):
 
 ```
-VITE_SHEETS_API=https://script.google.com/macros/s/AKfy…/exec
+https://script.google.com/macros/s/AKfycbx18JqnShcj5Uxtyv5fNXEIEqGodS3t06-aObOID50a32GiVQx23evUs8uut-tgynFlUA/exec
 ```
 
-Then run `npm run dev`.
+Just push the project to GitHub and Vercel redeploys it with the login screen switched on.
+
+- **To use a different deployment:** add a Vercel environment variable (**Settings → Environment Variables**) with key `VITE_SHEETS_API` and the new `/exec` URL as its value, then **Redeploy**. Locally, put the same line in a `.env.local` file.
+- **To switch logins off** (back to no accounts): set `VITE_SHEETS_API` to `off` and redeploy.
+- **If you edit `Code.gs`:** publish a **new version** of the same deployment (see "Changing the script later" below). The URL stays the same, so nothing needs to change on the site.
 
 ## Step 5 · Test it
 

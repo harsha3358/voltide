@@ -208,7 +208,7 @@ VOLTIDE can record every student's logins and learning in our Google Sheet: [VOL
 
 1. Paste [`google-sheets/Code.gs`](google-sheets/Code.gs) into the sheet (**Extensions → Apps Script**) and run `setup` once.
 2. **Deploy → New deployment → Web app** (Execute as: Me · Who has access: Anyone) and copy the URL.
-3. In Vercel, add the environment variable `VITE_SHEETS_API` = that URL, then **Redeploy**.
+3. The URL is already built into the site (`src/lib/backend.js`), so pushing to GitHub is enough. To use a different deployment, set `VITE_SHEETS_API` in Vercel; to switch logins off, set it to `off`.
 
 What students then see:
 - A **log in / sign up** screen first: name, registration number, email and password.
