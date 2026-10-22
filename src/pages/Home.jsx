@@ -22,10 +22,10 @@ const Lightning = lazy(() => import('../vendor/reactbits/Lightning/Lightning.jsx
 const HOW = [
   { icon: Sparkle, title: 'TL;DR first', text: 'Every mission opens with one sentence. No jargon. We promise (we checked).' },
   { icon: Drop, title: 'Water & lightning analogies', text: 'Data flows like water, attacks hit like lightning. Your brain already gets it, it just doesn’t know yet.' },
-  { icon: Bolt, title: 'Live demos, zero slides', text: 'Spot a phish, flip bits, break a hash. Everything runs in your browser, so nothing real gets hurt.' },
+  { icon: Bolt, title: 'Live demos, zero slides', text: 'Flip bits, crash a server on results day, auto-scale it back. Everything runs in your browser, so no surprise bills.' },
   { icon: Terminal, title: 'Labs you can’t mess up', text: 'Copy, paste, compare. The expected output is right there, inside your own isolated virtual lab.' },
   { icon: Check, title: 'XP, combos, ranks', text: 'Answer right, the screen sparks, the XP bar fills, dopamine happens. That’s just science.' },
-  { icon: Flag, title: 'A boss in every episode', text: 'Decrypt NULLSURGE’s secret message, then beat it in a timed boss fight. Badges are non-refundable flexes.' }
+  { icon: Flag, title: 'A boss in every episode', text: 'Decrypt LAGZILLA’s secret message, then beat it in a timed boss fight. Badges are non-refundable flexes.' }
 ];
 
 // The flow line above the session cards: water runs up to the last released
@@ -122,21 +122,21 @@ export default function Home() {
           </div>
         )}
         <div className="wrap" style={{ position: 'relative' }}>
-          <span className="kicker">B.Tech · Cybersecurity · Zero experience, zero judgement</span>
+          <span className="kicker">B.Tech · Cloud Computing · Zero experience, zero judgement</span>
           <h1 className="hero__title">
             <DecryptedText text="VOLTIDE" animateOn="view" sequential speed={45} revealDirection="center" characters="01⚡~≈#@%&" />
           </h1>
           <p className="hero__lead">
             <ShinyText text="Four episodes. One rogue AI. Zero boring lectures." color="#c9d3d5" shineColor="#ffffff" speed={3} /> Go from
-            “wait, what’s a bit?” to taking down NULLSURGE with your squad. If you can doomscroll, you can do this.
+            “wait, what’s the cloud?” to deploying a real website and taking down LAGZILLA with your squad. If you can doomscroll, you can do this.
           </p>
           <div className="hero__typer">
             <TextType
               text={[
-                '> Your password is probably “password”. We need to talk.',
-                '> Hackers don’t break in. They log in. With your password.',
+                '> The cloud is just someone else’s computer. A very big one.',
+                '> Results day + 3 servers = LAGZILLA. Results day + cloud = chill.',
                 '> Every click sends a packet somewhere. Yes, even that one.',
-                '> Defenders win in layers. Like an onion. Or a good biryani.'
+                '> Stop what you start. Your wallet will thank you.'
               ]}
               typingSpeed={38}
               pauseDuration={2200}
@@ -225,10 +225,10 @@ export default function Home() {
               <Shield />
             </span>
             <p style={{ margin: 0 }}>
-              <strong>The one rule that keeps you out of an FIR:</strong> only test systems you own or have <em>written
-              permission</em> to test. Everything here runs in your browser or your own isolated lab. Main-character energy,
-              legally.{' '}
-              <a href={href.topic(1, 'law-ethics')}>Why this matters →</a>
+              <strong>The one rule that saves your pocket money:</strong> use the free tier, set a billing alert, and{' '}
+              <em>stop or delete</em> every cloud resource when you’re done. Everything else in here runs in your browser or
+              your own VM.{' '}
+              <a href={href.topic(1, 'cloud-account')}>How to stay safe →</a>
             </p>
           </div>
         </section>

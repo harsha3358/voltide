@@ -1,15 +1,15 @@
-# VOLTIDE · Cybersecurity Walkthrough for B.Tech Freshers
+# VOLTIDE · Cloud Computing Walkthrough for B.Tech Freshers
 
-An animated, project-based walkthrough in four sessions. It starts from absolute zero ("what is a bit?") and builds up to defending a network. Theme: **⚡ electricity** (signals, attacks, sparks) × **🌊 water** (data flow, leaks, defense layers).
+An animated, gamified, project-based walkthrough of the **Cloud Computing Workshop** in four episodes. It starts from absolute zero ("what even is the cloud?") and ends with every team deploying a real website to the cloud. Theme: **⚡ electricity** (power, signals, speed) × **🌊 water** (data flowing, clouds, scaling floods).
 
 | # | Session | Status | Folder |
 |---|---|---|---|
-| 01 | **SPARK**: Foundations from Zero | 🔓 Open | [`sessions/01-spark`](sessions/01-spark/README.md) |
-| 02 | **CURRENT**: Networks & Network Defense | 🔒 Locked | [`sessions/02-current`](sessions/02-current/README.md) |
-| 03 | **TIDE**: Cryptography & Web Security | 🔒 Locked | [`sessions/03-tide`](sessions/03-tide/README.md) |
-| 04 | **SURGE**: Defenders, Incidents & Capstone | 🔒 Locked | [`sessions/04-surge`](sessions/04-surge/README.md) |
+| 01 | **SPARK**: Cloud from Zero + Setup | 🔓 Open | [`sessions/01-spark`](sessions/01-spark/README.md) |
+| 02 | **CURRENT**: Computer Networks | 🔒 Locked | [`sessions/02-current`](sessions/02-current/README.md) |
+| 03 | **TIDE**: Cloud Lab Practicals | 🔒 Locked | [`sessions/03-tide`](sessions/03-tide/README.md) |
+| 04 | **SURGE**: Cloud Deployment Challenge | 🔒 Locked | [`sessions/04-surge`](sessions/04-surge/README.md) |
 
-See [`PLAN.md`](PLAN.md) for the finalised topics of every session, including where each **Cloud Computing Workshop** topic was merged in.
+See [`PLAN.md`](PLAN.md) for the finalised topics of every episode, mapped one-to-one to the **Cloud Computing Workshop** plan.
 
 ## Run it
 
@@ -25,7 +25,7 @@ Node 20+ is required. Fonts are bundled, so the built site works **offline** in 
 ## Deploy: GitHub → Vercel
 
 ```bash
-git init && git add -A && git commit -m "VOLTIDE cybersecurity walkthrough"   # already done for you
+git init && git add -A && git commit -m "VOLTIDE cloud computing walkthrough"   # already done for you
 git branch -M main
 git remote add origin https://github.com/<you>/voltide.git
 git push -u origin main
@@ -62,14 +62,14 @@ Each session folder is self-contained: **`README.md`** (overview and objectives)
 | Link | Opens |
 |---|---|
 | `#/session/1` | Session page |
-| `#/session/1/topic/passwords-hashing` | Jump straight to a topic |
+| `#/session/1/topic/service-models` | Jump straight to a mission |
 | `#/session/1/guide` | That session's field guide |
 | `#/glossary` | Jargon buster |
 | `#/handbook` | This project's handbook |
 
 ## External links & photos
 
-Wherever a topic mentions a tool, site or law, the text links straight to it: e.g. VirtualBox → its download page, AWS → the AWS console, IT Act → the official India Code text. Links open in a new tab and are marked ↗. Photos load from **Wikimedia Commons** (free-licensed). Click a photo or its caption for the author and licence. Offline, a "View on Commons" link is shown instead.
+Wherever a topic mentions a tool, site or law, the text links straight to it: e.g. VirtualBox → its download page, AWS → the AWS console, App Engine → Google's App Engine page. Links open in a new tab and are marked ↗. Photos load from **Wikimedia Commons** (free-licensed). Click a photo or its caption for the author and licence. Offline, a "View on Commons" link is shown instead.
 
 ## Effects & credits
 

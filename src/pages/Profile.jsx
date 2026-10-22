@@ -16,7 +16,7 @@ export default function Profile() {
   const r = rankFor(g.xp);
   const [name, setName] = useState(g.handle);
   const [confirmReset, setConfirmReset] = useState(false);
-  const earned = Object.keys(g.badges).length;
+  const earned = Object.keys(g.badges).filter(id => BADGES[id]).length;
   const pct = r.next ? ((g.xp - r.floor) / (r.next - r.floor)) * 100 : 100;
   const s1Done = g.badges['boss-1'] && g.badges['decoder-1'];
   return (
@@ -31,7 +31,7 @@ export default function Profile() {
               <ShinyText text={g.handle} color="#e6f1ff" shineColor="#ffd23f" speed={3} />
             </h1>
             <div className="d-row">
-              <input className="input" style={{ maxWidth: 280 }} value={name} onChange={e => setName(e.target.value)} onBlur={() => setHandle(name)} aria-label="Your hacker handle" maxLength={24} />
+              <input className="input" style={{ maxWidth: 280 }} value={name} onChange={e => setName(e.target.value)} onBlur={() => setHandle(name)} aria-label="Your player handle" maxLength={24} />
               <button type="button" className="btn btn--sm" onClick={() => { const h = randomHandle(); setName(h); setHandle(h); }}>
                 🎲 Reroll handle
               </button>
@@ -61,7 +61,7 @@ export default function Profile() {
             <span className="d-label">Progress</span>
             {SESSIONS.map(s => (
               <p key={s.number} style={{ margin: '4px 0', fontSize: 14 }}>
-                <strong style={{ color: s.accent }}>0{s.number} {s.name}</strong> · {progress.countFor(s.number)} topics done
+                <strong style={{ color: s.accent }}>0{s.number} {s.name}</strong> · {progress.countFor(s.number)} missions done
               </p>
             ))}
           </div>
@@ -92,12 +92,12 @@ export default function Profile() {
           {s1Done ? (
             <>
               <h2>{g.handle}</h2>
-              <p>completed <strong>Session 01 · SPARK: Foundations from Zero</strong>, decrypted the transmission and defeated NULLSURGE.</p>
+              <p>completed <strong>Episode 01 · SPARK: Cloud from Zero + Setup</strong>, decrypted the transmission and defeated LAGZILLA.</p>
               <p className="d-note">Rank: {r.name} · {g.xp} XP · {earned} badges</p>
               <button type="button" className="btn btn--primary" onClick={() => window.print()}>Print / save as PDF</button>
             </>
           ) : (
-            <p style={{ marginTop: 12 }}>🔒 Unlocks when you finish every Session 01 topic <em>and</em> beat the boss.</p>
+            <p style={{ marginTop: 12 }}>🔒 Unlocks when you finish every Episode 01 mission <em>and</em> beat the boss.</p>
           )}
         </div>
 

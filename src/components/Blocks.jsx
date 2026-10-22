@@ -113,8 +113,8 @@ export function Lab({ lab }) {
   );
 }
 
-const PRAISE = ['Big brain energy. ', 'Correct, and frankly iconic. ', 'W answer. ', 'NULLSURGE felt that. '];
-const ROAST = ['Oof. Not quite. ', 'Plot twist: no. ', 'Close, but NULLSURGE is laughing. ', 'Respectfully, no. '];
+const PRAISE = ['Big brain energy. ', 'Correct, and frankly iconic. ', 'W answer. ', 'LAGZILLA felt that. '];
+const ROAST = ['Oof. Not quite. ', 'Plot twist: no. ', 'Close, but LAGZILLA is laughing. ', 'Respectfully, no. '];
 
 export function Checkpoint({ check, awardId }) {
   const [picked, setPicked] = useState(null);

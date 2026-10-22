@@ -2,28 +2,24 @@ import { useRef, useState } from 'react';
 import { useGSAP } from '@gsap/react';
 import { gsap } from '../../../src/lib/motion.js';
 
-// Your safe practice lab: two virtual machines inside your laptop, joined by a
-// private "host-only" water channel, with the valve to the internet shut.
+// Your practice cloud-in-a-laptop: VirtualBox runs an Ubuntu VM that reaches
+// the internet through your laptop (NAT), exactly like a tiny cloud server.
 const PARTS = {
-  host: ['Your laptop (the host)', 'The real computer. VirtualBox runs on it and pretends to be extra computers.'],
-  vbox: ['VirtualBox', 'Free software that creates virtual machines (VMs): computers made of software, living inside a window.'],
-  kali: ['Kali Linux VM · 192.168.56.101', 'Your toolbox computer. It comes with hundreds of security tools pre-installed. You practise FROM here.'],
-  ubuntu: ['Ubuntu VM · 192.168.56.102', 'Your practice target. You own it, so you are allowed to test it. In later sessions it runs a web server and firewall.'],
-  net: ['Host-only network 192.168.56.0/24', 'A private network that exists only inside your laptop. The VMs can talk to each other, but nobody outside can reach them.'],
-  valve: ['Closed valve to the internet', 'While you practise attacks, keep the lab cut off from real networks, so a mistake cannot hurt anyone else.']
+  host: ['Your laptop (the host)', 'The real computer. Its CPU, RAM and disk get shared with the virtual machine.'],
+  vbox: ['VirtualBox / VMware (hypervisor)', 'The software that slices your laptop into virtual computers. Cloud providers run the same idea on giant servers.'],
+  vm: ['Ubuntu VM', 'Your own Linux server. In Episode 03 you install a C compiler and a web app on it, just like on a cloud VM.'],
+  res: ['VM resources', 'You decide how much CPU, RAM and disk the VM gets, exactly like picking a machine size on AWS or Azure.'],
+  nat: ['NAT network', 'The VM borrows your laptop’s internet connection, so it can download updates while hiding behind your laptop.'],
+  net: ['Internet', 'Where cloud providers live. Same Ubuntu, same commands: only the computer is somewhere else.']
 };
 
 export default function LabTopology() {
   const ref = useRef(null);
-  const [pick, setPick] = useState('net');
+  const [pick, setPick] = useState('vm');
   useGSAP(
     () => {
       gsap.to('.lt-flow', { strokeDashoffset: -60, duration: 1.4, repeat: -1, ease: 'none' });
-      const path = ref.current.querySelector('.lt-channel');
-      gsap.utils.toArray('.lt-drop', ref.current).forEach((d, i) => {
-        gsap.to(d, { motionPath: { path, align: path, alignOrigin: [0.5, 0.5], start: i % 2, end: (i + 1) % 2 }, duration: 3, repeat: -1, delay: i * 0.75, ease: 'sine.inOut' });
-      });
-      gsap.to('.lt-x', { opacity: 0.3, repeat: -1, yoyo: true, duration: 0.6 });
+      gsap.to('.lt-cpu', { opacity: 0.35, duration: 0.5, repeat: -1, yoyo: true, stagger: 0.15 });
     },
     { scope: ref }
   );
@@ -34,43 +30,41 @@ export default function LabTopology() {
   );
   return (
     <div ref={ref}>
-      <svg viewBox="0 0 900 400">
+      <svg viewBox="0 0 900 380">
         <Hot id="host">
-          <rect x="20" y="20" width="660" height="360" rx="26" fill="rgba(125,249,255,.03)" stroke={pick === 'host' ? 'var(--spark)' : 'var(--line-strong)'} strokeWidth="2" />
+          <rect x="20" y="20" width="620" height="340" rx="26" fill="rgba(83,234,253,.03)" stroke={pick === 'host' ? 'var(--spark)' : 'var(--line-strong)'} strokeWidth="2" />
           <text x="44" y="56" fontFamily="Space Grotesk" fontSize="18" fill="var(--text)">💻 Your laptop (host)</text>
         </Hot>
         <Hot id="vbox">
-          <rect x="50" y="80" width="600" height="270" rx="20" fill="rgba(77,139,255,.05)" stroke={pick === 'vbox' ? 'var(--spark)' : '#2c4f8f'} strokeWidth="2" strokeDasharray="6 6" />
-          <text x="72" y="110" fontFamily="JetBrains Mono" fontSize="14" fill="#7fa8ff">VirtualBox</text>
+          <rect x="50" y="80" width="560" height="250" rx="20" fill="rgba(43,127,255,.05)" stroke={pick === 'vbox' ? 'var(--spark)' : '#2c4f8f'} strokeWidth="2" strokeDasharray="6 6" />
+          <text x="72" y="110" fontFamily="JetBrains Mono" fontSize="14" fill="#8ec5ff">VirtualBox / VMware</text>
         </Hot>
-        <path className="lt-channel" d="M210 230 C 300 300, 400 300, 490 230" fill="none" stroke="#0b2a3a" strokeWidth="26" strokeLinecap="round" />
+        <Hot id="vm">
+          <rect x="110" y="140" width="250" height="150" rx="18" fill="#2a0f1a" stroke={pick === 'vm' ? 'var(--spark)' : '#e95420'} strokeWidth="2.5" />
+          <circle cx="160" cy="190" r="20" fill="#e95420" />
+          <text x="160" y="197" textAnchor="middle" fontFamily="Space Grotesk" fontWeight="700" fontSize="18" fill="#fff">U</text>
+          <text x="195" y="186" fontFamily="Space Grotesk" fontSize="18" fill="var(--text)">Ubuntu VM</text>
+          <text x="195" y="208" fontFamily="JetBrains Mono" fontSize="12" fill="var(--muted)">student@ubuntu</text>
+          <text x="130" y="260" fontFamily="JetBrains Mono" fontSize="12" fill="var(--muted)">$ sudo apt update ▌</text>
+        </Hot>
+        <Hot id="res">
+          <rect x="390" y="140" width="190" height="150" rx="18" fill="#0b1820" stroke={pick === 'res' ? 'var(--spark)' : 'var(--accent)'} strokeWidth="2" />
+          {['2 CPU', '4 GB RAM', '25 GB disk'].map((t, i) => (
+            <g key={t}>
+              <rect className="lt-cpu" x="410" y={160 + i * 40} width="14" height="14" rx="3" fill="var(--accent)" />
+              <text x="434" y={172 + i * 40} fontFamily="JetBrains Mono" fontSize="14" fill="var(--text)">{t}</text>
+            </g>
+          ))}
+        </Hot>
+        <Hot id="nat">
+          <path d="M610 205 H760" stroke="var(--line-strong)" strokeWidth="12" strokeLinecap="round" />
+          <path className="lt-flow" d="M610 205 H760" stroke="var(--ok)" strokeWidth="3" strokeDasharray="10 20" />
+          <text x="685" y="190" textAnchor="middle" fontFamily="JetBrains Mono" fontSize="13" fill="var(--ok)">NAT</text>
+        </Hot>
         <Hot id="net">
-          <path d="M210 230 C 300 300, 400 300, 490 230" fill="none" stroke={pick === 'net' ? 'var(--spark)' : 'var(--tide)'} strokeOpacity=".35" strokeWidth="18" strokeLinecap="round" />
-          <path className="lt-flow" d="M210 230 C 300 300, 400 300, 490 230" fill="none" stroke="var(--tide)" strokeWidth="3" strokeDasharray="10 20" />
-          <text x="350" y="326" textAnchor="middle" fontFamily="JetBrains Mono" fontSize="13" fill="var(--tide)">host-only · 192.168.56.0/24</text>
+          <text x="820" y="215" textAnchor="middle" fontSize="44">🌐</text>
+          <text x="820" y="250" textAnchor="middle" fontFamily="Space Grotesk" fontSize="15" fill="var(--muted)">Internet &amp; cloud</text>
         </Hot>
-        {[0, 1, 2, 3].map(i => (
-          <circle key={i} className="lt-drop" r="6" fill={i % 2 ? 'var(--spark)' : '#bffcff'} style={{ filter: 'drop-shadow(0 0 6px #7df9ff)' }} />
-        ))}
-        <Hot id="kali">
-          <rect x="100" y="140" width="200" height="90" rx="16" fill="#071a33" stroke={pick === 'kali' ? 'var(--spark)' : '#4d8bff'} strokeWidth="2.5" />
-          <text x="200" y="178" textAnchor="middle" fontSize="24">🐉</text>
-          <text x="200" y="206" textAnchor="middle" fontFamily="Space Grotesk" fontSize="16" fill="var(--text)">Kali Linux</text>
-          <text x="200" y="224" textAnchor="middle" fontFamily="JetBrains Mono" fontSize="11" fill="var(--muted)">.56.101</text>
-        </Hot>
-        <Hot id="ubuntu">
-          <rect x="400" y="140" width="200" height="90" rx="16" fill="#1d0c19" stroke={pick === 'ubuntu' ? 'var(--spark)' : '#ff7a45'} strokeWidth="2.5" />
-          <text x="500" y="178" textAnchor="middle" fontSize="24">🎯</text>
-          <text x="500" y="206" textAnchor="middle" fontFamily="Space Grotesk" fontSize="16" fill="var(--text)">Ubuntu target</text>
-          <text x="500" y="224" textAnchor="middle" fontFamily="JetBrains Mono" fontSize="11" fill="var(--muted)">.56.102</text>
-        </Hot>
-        <line x1="680" y1="200" x2="790" y2="200" stroke="var(--line-strong)" strokeWidth="10" strokeLinecap="round" />
-        <Hot id="valve">
-          <circle cx="735" cy="200" r="22" fill="#1a0b14" stroke="var(--danger)" strokeWidth="3" />
-          <path className="lt-x" d="M725 190 L745 210 M745 190 L725 210" stroke="var(--danger)" strokeWidth="4" strokeLinecap="round" />
-        </Hot>
-        <text x="830" y="190" textAnchor="middle" fontSize="40">🌐</text>
-        <text x="830" y="230" textAnchor="middle" fontFamily="Space Grotesk" fontSize="15" fill="var(--muted)">Internet</text>
       </svg>
       <div className="info-pop" aria-live="polite">
         <strong>{PARTS[pick][0]}: </strong>

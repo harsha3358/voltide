@@ -1,5 +1,7 @@
-# Session 03 · TIDE: Cryptography & Web Security 🔒
+# Episode 03 · TIDE: Cloud Lab Practicals 🔒
 
-This session is **locked** until the facilitator releases it (see `facilitator/README.md`).
+*(Cloud Computing Workshop · Day 2 · Session 03)*
 
-Planned topics are listed in [`PLAN.md`](../../PLAN.md#session-03). The field guide (`guide.md`) and interactive content (`content.jsx`) for this session are in progress.
+This episode is **locked** until the facilitator releases it (see `facilitator/README.md`).
+
+Planned missions are listed in [`PLAN.md`](../../PLAN.md). The field guide (`guide.md`) and interactive content (`content.jsx`) for this episode are in progress.

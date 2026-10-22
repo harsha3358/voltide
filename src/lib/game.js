@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 
-// The game layer: XP, ranks, badges, combo streaks and a hacker handle.
+// The game layer: XP, ranks, badges, combo streaks and a player handle.
 // Everything is per-viewer (localStorage) and every award is idempotent by id,
 // so replaying a demo never farms XP twice.
 const KEY = 'voltide:game';
@@ -10,10 +10,10 @@ export const RANKS = [
   [0, 'Recruit', 'Just plugged in.'],
   [250, 'Spark', 'You can feel the current.'],
   [600, 'Packet Rider', 'Data flows where you point it.'],
-  [1100, 'Firewall Kid', 'Nothing gets past without asking.'],
-  [1800, 'Cipher Witch', 'Secrets bend to your will.'],
-  [2700, 'Tide Breaker', 'Floods of traffic? You surf them.'],
-  [3800, 'Blue-Team Legend', 'NULLSURGE fears your name.']
+  [1100, 'VM Wrangler', 'Virtual machines obey you.'],
+  [1800, 'Container Captain', 'You ship apps in seconds.'],
+  [2700, 'Auto-Scaler', 'Traffic floods? You surf them.'],
+  [3800, 'Cloud Architect', 'LAGZILLA fears your name.']
 ];
 
 export const BADGES = {
@@ -21,15 +21,13 @@ export const BADGES = {
   'bit-flipper': ['Bit Flipper', 'Spelled a letter in binary', 'bolt'],
   'packet-pusher': ['Packet Pusher', 'Sent HELLO across the internet', 'globe'],
   'cloud-walker': ['Cloud Walker', 'Explored every cloud model', 'cloud'],
-  'phish-slayer': ['Phish Slayer', 'Found all 6 red flags', 'flag'],
-  'illusionist': ['Illusion Breaker', 'Saw through the homoglyph', 'eye'],
-  'hash-hero': ['Hash Hero', 'Triggered the avalanche effect', 'key'],
-  'ethics-ace': ['Ethics Ace', 'Perfect score on Allowed or Not', 'scale'],
-  'shield-max': ['Shield Maxed', 'Ticked every hygiene habit', 'shield'],
+  'model-matcher': ['Model Matcher', 'Matched all 6 IaaS / PaaS / SaaS cases', 'layers'],
+  'scale-master': ['Scale Master', 'Scaled up for results day, then back down', 'chart'],
+  'shield-max': ['Account Guardian', 'Ticked every cloud-account safety habit', 'shield'],
   'terminal-tamer': ['Terminal Tamer', 'Completed all 8 terminal missions', 'terminal'],
   'combo-5': ['Combo x5', 'Five right answers in a row', 'fire'],
-  'boss-1': ['NULLSURGE · Episode 1', 'Won the Session 01 boss fight', 'target'],
-  'decoder-1': ['Decoder', 'Decrypted the Session 01 transmission', 'lock']
+  'boss-1': ['LAGZILLA · Episode 1', 'Won the Episode 01 boss fight', 'target'],
+  'decoder-1': ['Decoder', 'Decrypted the Episode 01 transmission', 'lock']
 };
 
 const ADJ = ['Neon', 'Static', 'Monsoon', 'Quantum', 'Velvet', 'Ghost', 'Turbo', 'Pixel', 'Lunar', 'Cobalt', 'Storm', 'Glitch'];

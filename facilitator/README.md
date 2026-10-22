@@ -23,6 +23,6 @@ npm run facilitator:hash -- NEW-CODE
 ```
 Paste the printed `unlockHash` into `sessions/index.js`.
 
-> This lock is a classroom gate, not real security: the content ships to the browser. That is a nice teaching moment in Session 03, because client-side checks never protect data.
+> This lock is a classroom gate, not real security: the content ships to the browser. That's a good teaching moment in Episode 04 ("protect credentials"), because anything shipped to the browser is public.
 
-See [`guide.md`](guide.md) for teaching notes. The original **Cloud Computing Workshop** plan these sessions incorporate is in [`reference/Cloud_Computing_Workshop.pdf`](reference/Cloud_Computing_Workshop.pdf); `PLAN.md` shows where each of its topics landed.
+See [`guide.md`](guide.md) for teaching notes. The original **Cloud Computing Workshop** plan these episodes follow is in [`reference/Cloud_Computing_Workshop.pdf`](reference/Cloud_Computing_Workshop.pdf); `PLAN.md` maps each of its sessions to an episode.

@@ -12,7 +12,7 @@ const split = (phrase, n) => {
   return out;
 };
 
-export default function Transmission({ session, phrase, topics, isDone }) {
+export default function Transmission({ session, phrase, topics, isDone, villain = 'LAGZILLA' }) {
   const chunks = split(phrase, topics.length);
   const open = topics.map(t => isDone(session.number, t.id));
   const count = open.filter(Boolean).length;
@@ -31,7 +31,7 @@ export default function Transmission({ session, phrase, topics, isDone }) {
           <p style={{ margin: '6px 0 0', color: 'var(--text-soft)', fontSize: 15 }}>
             {complete
               ? 'Decrypted. Screenshot it, it’s yours.'
-              : 'NULLSURGE hid a message in this session. Every topic you finish cracks one fragment.'}
+              : `${villain} hid a message in this episode. Every mission you finish cracks one fragment.`}
           </p>
         </div>
       </div>

@@ -36,7 +36,7 @@ export default function Glossary({ route }) {
               <h3>{term}</h3>
               <p>{def}</p>
               <div className="term-card__foot">
-                <span className="chip">Session 0{s}</span>
+                <span className="chip">Episode 0{s}</span>
                 <a href={href.topic(s, topic)}>
                   Learn it <Arrow width="13" style={{ verticalAlign: '-2px' }} />
                 </a>

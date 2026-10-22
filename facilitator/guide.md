@@ -11,7 +11,8 @@
 3. Labs show the **expected output**. Ask students to compare, not just copy.
 4. End with the takeaway checklist on the projector.
 
-## Safety & ethics
-- All hands-on work happens on **host-only** virtual networks that students own.
-- Never point tools at campus, hostel or public networks.
-- Restate the golden rule at the start of every session.
+## Keep it smooth (from the workshop plan)
+- Prepare VM images and sample code in advance.
+- If cloud accounts or internet are unavailable, use a local VM: every lab works on the Ubuntu VM.
+- Students use free tiers with a billing alert, and **stop or delete temporary cloud resources after the workshop**.
+- Restate the golden rule at the start of every episode: *stop what you start.*

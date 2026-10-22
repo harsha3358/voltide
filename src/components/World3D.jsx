@@ -3,8 +3,8 @@ import * as THREE from 'three';
 
 // VOLTIDE WORLD: the 3D motion background.
 // A night ocean made of glowing data points, lightning that strikes the water
-// and sends ripple rings across it, a floating wireframe crystal (NULLSURGE's
-// core) and sparks drifting up. The camera drifts, follows the pointer and
+// and sends ripple rings across it, a floating wireframe crystal (the
+// villain's core) and sparks drifting up. The camera drifts, follows the pointer and
 // dives toward the water as the page scrolls.
 const MOODS = {
   spark: { bolts: 1.0, waves: 1.0, core: 1.0 },
@@ -123,7 +123,7 @@ export default function World3D({ palette = {}, mood = 'spark', opacity = 1 }) {
     const ocean = new THREE.Points(geo, oceanMat);
     scene.add(ocean);
 
-    // NULLSURGE core: nested wireframe crystals with a glowing heart
+    // Villain core: nested wireframe crystals with a glowing heart
     const core = new THREE.Group();
     const outer = new THREE.LineSegments(
       new THREE.EdgesGeometry(new THREE.IcosahedronGeometry(3.2, 1)),

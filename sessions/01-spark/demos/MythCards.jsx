@@ -2,12 +2,12 @@ import { useEffect, useState } from 'react';
 import { award, badge } from '../../../src/lib/game.js';
 
 const MYTHS = [
-  ['🕶️', 'Hackers are hoodie geniuses typing at lightning speed.', 'Most real attacks are boring: a guessed password, a fake email, a phone that skipped updates. Simple tricks, repeated millions of times.'],
-  ['🤷', 'I am not important. Nobody will hack me.', 'Bots attack everyone automatically. Your account, phone or Wi-Fi is useful as a stepping stone to your friends, family and college.'],
-  ['🛡️', 'Antivirus means I am 100% safe.', 'No single tool stops everything. Security works in layers: updates, strong passwords, MFA, backups and your own judgement.'],
-  ['🚫', 'All hacking is illegal.', 'Ethical hackers break into systems with written permission to find weaknesses first. It is a real, well-paid career.'],
-  ['🕵️', 'Incognito mode makes me invisible.', 'It only skips saving history on your own device. Your college network, ISP and the websites you visit can still see you.'],
-  ['🍎', 'Phones and Macs cannot get viruses.', 'Every system has bugs. Fake apps, malicious links and unpatched software affect Android, iOS, macOS and Windows alike.']
+  ['☁️', 'The cloud is literally up in the sky.', 'It’s very much on the ground: huge buildings full of servers (data centres) in places like Mumbai, Hyderabad and Virginia, connected by fibre cables.'],
+  ['🆓', 'The cloud is free.', 'Free tiers exist, but the cloud is pay-as-you-go. Forget to switch off a big server and the bill keeps ticking, like leaving the geyser on all month.'],
+  ['📁', 'Cloud = Google Drive.', 'Drive is one cloud *app* (SaaS). The cloud also rents out whole virtual computers, databases, AI models and networks to build your own apps on.'],
+  ['👩‍💻', 'You need to be a coding genius to use it.', 'You can launch your first server by clicking buttons in a web console. The coding comes later, and it’s the fun part.'],
+  ['💥', 'The cloud never goes down.', 'It’s very reliable, but outages happen. Good cloud apps are spread across several data centres so one failure doesn’t take everything down.'],
+  ['🐢', 'My laptop is basically as good.', 'Your laptop has a few CPU cores. One cloud account can borrow thousands of them for an hour, then give them back.']
 ];
 
 export default function MythCards() {

@@ -1,5 +1,7 @@
-# Session 02 · CURRENT: Networks & Network Defense 🔒
+# Episode 02 · CURRENT: Computer Networks 🔒
 
-This session is **locked** until the facilitator releases it (see `facilitator/README.md`).
+*(Cloud Computing Workshop · Day 1 · Session 02)*
 
-Planned topics are listed in [`PLAN.md`](../../PLAN.md#session-02). The field guide (`guide.md`) and interactive content (`content.jsx`) for this session are in progress.
+This episode is **locked** until the facilitator releases it (see `facilitator/README.md`).
+
+Planned missions are listed in [`PLAN.md`](../../PLAN.md). The field guide (`guide.md`) and interactive content (`content.jsx`) for this episode are in progress.

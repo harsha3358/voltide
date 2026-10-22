@@ -1,5 +1,7 @@
-# Session 04 · SURGE: Defenders, Incidents & Capstone 🔒
+# Episode 04 · SURGE: Cloud Deployment Challenge 🔒
 
-This session is **locked** until the facilitator releases it (see `facilitator/README.md`).
+*(Cloud Computing Workshop · Day 2 · Session 04)*
 
-Planned topics are listed in [`PLAN.md`](../../PLAN.md#session-04). The field guide (`guide.md`) and interactive content (`content.jsx`) for this session are in progress.
+This episode is **locked** until the facilitator releases it (see `facilitator/README.md`).
+
+Planned missions are listed in [`PLAN.md`](../../PLAN.md). The field guide (`guide.md`) and interactive content (`content.jsx`) for this episode are in progress.

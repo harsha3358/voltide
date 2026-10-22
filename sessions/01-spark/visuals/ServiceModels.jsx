@@ -2,7 +2,6 @@ import { useEffect, useRef, useState } from 'react';
 import { award, badge } from '../../../src/lib/game.js';
 import { useGSAP } from '@gsap/react';
 import { gsap } from '../../../src/lib/motion.js';
-import { Icon } from '../../../src/components/Glyphs.jsx';
 
 // Who manages what? Pick a model and the provider's "water level" rises up the
 // stack. Everything above the waterline is still YOUR job to secure.
@@ -13,11 +12,6 @@ const MODELS = {
   paas: { name: 'PaaS', provider: 7, eg: 'Google App Engine, Azure App Service, Heroku', you: 'Your code and your data: secure coding, access control, secrets.', water: 'Piped water to a tap: you just decide what to do with it.' },
   saas: { name: 'SaaS', provider: 8, eg: 'Gmail, Google Docs, Zoom, MS Teams', you: 'Your account and your data: strong password, MFA, sharing settings.', water: 'Bottled water: ready to drink, you only choose who you share it with.' }
 };
-const DEPLOY = [
-  ['globe', 'Public cloud', 'Shared, pay-as-you-go infrastructure run by AWS, Azure or Google, open to anyone.'],
-  ['building', 'Private cloud', 'Cloud-style infrastructure used by one organisation only, for example a bank’s own data centre.'],
-  ['layers', 'Hybrid cloud', 'A mix: sensitive data stays private, public cloud handles the rest or the busy days.']
-];
 
 export default function ServiceModels() {
   const [m, setM] = useState('iaas');
@@ -72,17 +66,8 @@ export default function ServiceModels() {
           <div className="d-panel" aria-live="polite">
             <span className="d-label">{model.name}</span>
             <p style={{ margin: '0 0 10px' }}><strong>Examples:</strong> {model.eg}</p>
-            <p style={{ margin: '0 0 10px' }}><strong style={{ color: 'var(--spark)' }}>Your security job:</strong> {model.you}</p>
+            <p style={{ margin: '0 0 10px' }}><strong style={{ color: 'var(--spark)' }}>Your job:</strong> {model.you}</p>
             <p style={{ margin: 0, color: 'var(--text-soft)' }}><strong style={{ color: 'var(--tide)' }}>Water analogy:</strong> {model.water}</p>
-          </div>
-          <div className="d-grid" style={{ marginTop: 14, gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 170px), 1fr))' }}>
-            {DEPLOY.map(([icon, name, text]) => (
-              <div key={name} className="d-panel">
-                <Icon name={icon} size={26} color="var(--accent)" />
-                <h4 style={{ margin: '8px 0 4px', fontSize: '1.05rem' }}>{name}</h4>
-                <p className="d-note" style={{ margin: 0 }}>{text}</p>
-              </div>
-            ))}
           </div>
         </div>
       </div>

@@ -155,7 +155,7 @@ export default function SessionPage({ route }) {
               <Map /> Mission map
             </a>
           </div>
-          {content.transmission && <Transmission session={session} phrase={content.transmission} topics={topics} isDone={progress.isDone} />}
+          {content.transmission && <Transmission session={session} phrase={content.transmission} topics={topics} isDone={progress.isDone} villain={content.boss?.name} />}
           {content.outcomes && (
             <div className="outcomes card" data-reveal>
               <span className="kicker">By the end you can (and will, mostly)</span>

@@ -86,7 +86,7 @@ export default function TerminalSim() {
 
   const run = raw => {
     const cmd = raw.trim();
-    const out = [{ t: 'p', s: `student@voltide:${short(cwd)}$ ${cmd}` }];
+    const out = [{ t: 'p', s: `student@ubuntu:${short(cwd)}$ ${cmd}` }];
     const say = (s, t = 'o') => out.push({ t, s });
     const [name, ...args] = cmd.split(/\s+/);
     const flags = args.filter(a => a.startsWith('-')).join('');
@@ -183,13 +183,13 @@ export default function TerminalSim() {
         say('This is a simulator, so no root here. On your real VM, sudo runs a command as the administrator. With great power comes great responsibility.', 'hint');
         break;
       case 'ip':
-        say('1: lo: <LOOPBACK,UP> inet 127.0.0.1/8\n2: eth0: <BROADCAST,UP> inet 192.168.56.101/24 brd 192.168.56.255');
+        say('1: lo: <LOOPBACK,UP> inet 127.0.0.1/8\n2: eth0: <BROADCAST,UP> inet 10.0.2.15/24 brd 10.0.2.255 (NAT)');
         break;
       case 'date':
         say(new Date().toString());
         break;
       case 'uname':
-        say(flags.includes('a') ? 'Linux voltide 6.8.0-kali-amd64 #1 SMP x86_64 GNU/Linux' : 'Linux');
+        say(flags.includes('a') ? 'Linux ubuntu 6.8.0-45-generic #45-Ubuntu SMP x86_64 GNU/Linux' : 'Linux');
         break;
       case 'history':
         say(hist.map((h, i) => `${String(i + 1).padStart(4)}  ${h}`).join('\n') || '(no history yet)');
@@ -251,7 +251,7 @@ export default function TerminalSim() {
           ))}
         </div>
         <div className="term-sim__input">
-          <span>student@voltide:{short(cwd)}$</span>
+          <span>student@ubuntu:{short(cwd)}$</span>
           <input ref={inputRef} value={input} onChange={e => setInput(e.target.value)} onKeyDown={onKey} aria-label="Terminal command" autoCapitalize="off" autoComplete="off" spellCheck="false" />
         </div>
       </div>

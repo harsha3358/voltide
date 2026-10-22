@@ -9,9 +9,9 @@ import { Md } from './Blocks.jsx';
 
 const TIME = 20;
 
-// The end-of-episode boss: answer fast to strike NULLSURGE with lightning.
+// The end-of-episode boss (named in content.boss.name): answer fast to strike it with lightning.
 // Wrong answers or timeouts cost a life. Three lives, one boss, no farming.
-function Nullsurge({ hit }) {
+function Monster({ hit }) {
   return (
     <svg viewBox="0 0 220 220" className="boss-svg" aria-hidden="true" style={{ width: '100%', maxWidth: 260, margin: '0 auto', display: 'block' }}>
       <defs>
@@ -34,6 +34,7 @@ function Nullsurge({ hit }) {
 }
 
 export default function BossBattle({ session, boss }) {
+  const name = boss.name || 'LAGZILLA';
   const total = boss.questions.length;
   const [i, setI] = useState(0);
   const [hp, setHp] = useState(total);
@@ -97,7 +98,7 @@ export default function BossBattle({ session, boss }) {
     setTimeout(() => {
       if (nextHp <= 0) {
         setState('won');
-        award(`boss:${session.number}`, 400, `NULLSURGE defeated · Episode 0${session.number}`);
+        award(`boss:${session.number}`, 400, `${name} defeated · Episode 0${session.number}`);
         badge(`boss-${session.number}`);
         burst(ref.current);
       } else if (nextLives <= 0) setState('lost');
@@ -114,9 +115,9 @@ export default function BossBattle({ session, boss }) {
       <div className="boss__stage">
         <div>
           <GlitchText speed={0.7} intensity={0.4} fontSize="clamp(1.6rem, 4vw, 2.4rem)" shadowColors={['#ff4d6d', '#7df9ff']}>
-            NULLSURGE
+            {name}
           </GlitchText>
-          <Nullsurge hit={picked !== null && picked === q.answer} />
+          <Monster hit={picked !== null && picked === q.answer} />
           <span className="d-label" style={{ marginTop: 8 }}>Boss HP</span>
           <div className="boss__hp">
             <i style={{ width: `${(hp / total) * 100}%` }} />
@@ -162,14 +163,14 @@ export default function BossBattle({ session, boss }) {
                   );
                 })}
               </div>
-              {picked === -1 && <p className="d-note d-bad">Too slow! NULLSURGE hits back.</p>}
+              {picked === -1 && <p className="d-note d-bad">Too slow! {name} hits back.</p>}
             </div>
           )}
           {state === 'won' && (
             <div className="hook" style={{ alignItems: 'center' }}>
               <Volty size={90} mood="happy" />
               <div>
-                <h3 style={{ fontSize: '1.8rem', color: 'var(--spark)' }}>NULLSURGE fried. GG.</h3>
+                <h3 style={{ fontSize: '1.8rem', color: 'var(--spark)' }}>{name} deleted. GG.</h3>
                 <p style={{ color: 'var(--text-soft)' }}>{boss.win}</p>
                 <a className="btn btn--sm" href="#/profile">See your badges</a>
               </div>
