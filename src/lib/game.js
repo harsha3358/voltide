@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { flush, setSummary, track } from './track.js';
 
 // The game layer: XP, ranks, badges, combo streaks and a player handle.
 // Everything is per-viewer (localStorage) and every award is idempotent by id,
@@ -70,6 +71,18 @@ function read() {
 let state = read();
 const toasts = new Set();
 
+// What the activity sheet shows for each kind of award id.
+const KIND = [
+  ['quiz:', 'Checkpoint right'],
+  ['done:', 'Mission complete'],
+  ['labdone:', 'Lab complete'],
+  ['lab:', 'Lab step done'],
+  ['demo:', 'Demo goal'],
+  ['boss:', 'Boss defeated'],
+  ['decoder:', 'Transmission decoded']
+];
+const kindOf = id => (KIND.find(([p]) => id.startsWith(p)) || [, 'XP earned'])[1];
+
 function save() {
   try {
     localStorage.setItem(KEY, JSON.stringify(state));
@@ -100,6 +113,7 @@ export function award(id, xp, label) {
   state = { ...state, xp: state.xp + xp, awards: { ...state.awards, [id]: xp } };
   const after = rankFor(state.xp);
   save();
+  track(kindOf(id), label, id, { xp, total: state.xp });
   toast({ kind: 'xp', xp, label });
   if (after.index > before.index) toast({ kind: 'rank', rank: after });
   sfx('up');
@@ -110,6 +124,7 @@ export function badge(id) {
   if (state.badges[id] || !BADGES[id]) return;
   state = { ...state, badges: { ...state.badges, [id]: Date.now() } };
   save();
+  track('Badge earned', BADGES[id][0], BADGES[id][1]);
   toast({ kind: 'badge', id, badge: BADGES[id] });
   sfx('badge');
 }
@@ -119,6 +134,7 @@ export function answer(correct) {
   const combo = correct ? state.combo + 1 : 0;
   state = { ...state, combo, best: Math.max(state.best, combo) };
   save();
+  if (!correct) track('Checkpoint wrong', '', 'wrong answer');
   if (combo >= 5) badge('combo-5');
   sfx(correct ? 'zap' : 'buzz');
   return combo;
@@ -140,19 +156,28 @@ export function setSound(on) {
 export function resetScore() {
   state = { ...blank(), handle: state.handle, sound: state.sound };
   save();
+  track('Reset score');
+  flush();
 }
 
 // Reset everything: wipes ALL activity on this browser so the next student
 // starts fresh: score, badges, missions done, decrypted fragments, unlocked
 // episodes, boss results, the resume pointer and the episode intros. Only the
 // device's lite-mode preference survives. Then it reloads to the home page.
-export function resetEverything() {
+// When logged in, the login stays and the progress saved in the Google Sheet
+// is wiped too (the activity history in the sheet is kept).
+export async function resetEverything() {
+  const keep = new Set(['voltide:lite', 'voltide:auth', 'voltide:owner']);
   try {
     Object.keys(localStorage)
-      .filter(k => k.startsWith('voltide:') && k !== 'voltide:lite')
+      .filter(k => k.startsWith('voltide:') && !keep.has(k))
       .forEach(k => localStorage.removeItem(k));
   } catch {}
   state = blank();
+  track('Reset everything');
+  try {
+    await flush();
+  } catch {}
   window.location.hash = '#/';
   window.location.reload();
 }
@@ -191,3 +216,6 @@ export function sfx(kind) {
     });
   } catch {}
 }
+
+// XP, rank and badge count for the progress snapshot sent to the sheet.
+setSummary(() => ({ xp: state.xp, rank: rankFor(state.xp).name, badges: Object.keys(state.badges).filter(b => BADGES[b]).length }));

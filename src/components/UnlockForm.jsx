@@ -2,10 +2,12 @@ import { useRef, useState } from 'react';
 import { tryUnlock } from '../lib/lock.js';
 import { useSpark } from './Spark.jsx';
 import { Unlock } from './Icons.jsx';
+import ErrorToon from './ErrorToon.jsx';
 
 export default function UnlockForm({ session, onUnlocked }) {
   const [code, setCode] = useState('');
   const [msg, setMsg] = useState(null);
+  const [fails, setFails] = useState(0);
   const formRef = useRef(null);
   const burst = useSpark();
   const submit = e => {
@@ -16,6 +18,7 @@ export default function UnlockForm({ session, onUnlocked }) {
       setTimeout(() => onUnlocked?.(), 650);
     } else {
       setMsg({ ok: false, text: 'ACCESS DENIED: wrong code. Ask your facilitator.' });
+      setFails(n => n + 1);
       formRef.current.classList.remove('shake');
       void formRef.current.offsetWidth;
       formRef.current.classList.add('shake');
@@ -43,6 +46,11 @@ export default function UnlockForm({ session, onUnlocked }) {
       <div className={`gate__msg ${msg ? (msg.ok ? 'good' : 'bad') : ''}`} role="status">
         {msg?.text}
       </div>
+      {msg && !msg.ok && (
+        <div style={{ marginTop: 12 }}>
+          <ErrorToon key={fails} compact code={403} />
+        </div>
+      )}
     </>
   );
 }

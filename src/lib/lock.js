@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { sha256 } from './sha256.js';
+import { track } from './track.js';
 
 const KEY = 'voltide:unlocked';
 const EVENT = 'voltide:unlock';
@@ -25,7 +26,11 @@ export function isUnlocked(session) {
 }
 
 export function tryUnlock(session, code) {
-  if (sha256(String(code).trim().toUpperCase()) !== session.unlockHash) return false;
+  if (sha256(String(code).trim().toUpperCase()) !== session.unlockHash) {
+    track('Wrong unlock code', `Episode 0${session.number}`);
+    return false;
+  }
+  track('Unlocked episode', `Episode 0${session.number} · ${session.name}`);
   const stored = readStored();
   stored.add(session.number);
   try {

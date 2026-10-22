@@ -4,6 +4,7 @@
 
 ## For students
 
+0. If you see a **Log in / Sign up** screen, sign up once with your name, registration number, email and a password. Your progress is saved to your account, so you can log in on any computer. Forgot your password? Click **Forgot password?** and we'll email you a 6-digit code.
 1. Start with **Episode 01 · SPARK**. The others unlock when your facilitator drops the code in class.
 2. Every mission (topic) follows the same rhythm:
    - **Volty's hook**: why you should care, in one line.
@@ -44,7 +45,7 @@ On the profile page, scroll to **Reset**. You get two options:
 | **Reset score** | XP, rank, badges, combos, boss wins, lab ticks | Mission progress, checklists, unlocked episodes |
 | **Reset everything** | All of it: XP, badges, missions, checklists, unlocked episodes, team card, handle | Only the lite-mode setting |
 
-Use **Reset everything** on a shared lab PC before the next student sits down.
+Use **Reset everything** on a shared lab PC before the next student sits down. If you logged in with an account, just **Log out** instead (on your profile): your progress stays saved.
 
 ## The golden rule of the cloud
 

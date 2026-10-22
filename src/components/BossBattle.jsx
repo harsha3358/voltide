@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import { useGSAP } from '@gsap/react';
 import { gsap } from '../lib/motion.js';
 import { answer, award, badge, sfx } from '../lib/game.js';
+import { track } from '../lib/track.js';
 import { useSpark } from './Spark.jsx';
 import Volty from './Volty.jsx';
 import GlitchText from '../vendor/reactbits/GlitchText/GlitchText.jsx';
@@ -101,7 +102,10 @@ export default function BossBattle({ session, boss }) {
         award(`boss:${session.number}`, 400, `${name} defeated · Episode 0${session.number}`);
         badge(`boss-${session.number}`);
         burst(ref.current);
-      } else if (nextLives <= 0) setState('lost');
+      } else if (nextLives <= 0) {
+        setState('lost');
+        track('Boss lost', `${name} · Episode 0${session.number}`, `question ${i + 1}`);
+      }
       else {
         setI(i + 1);
         setPicked(null);

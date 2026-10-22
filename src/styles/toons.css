@@ -1,0 +1,196 @@
+/* Error cartoons (src/components/ErrorToon.jsx) */
+.toon-card {
+  display: grid;
+  grid-template-columns: minmax(160px, 260px) minmax(0, 1fr);
+  gap: 22px;
+  align-items: center;
+  padding: 20px 22px;
+  border-radius: 22px;
+  border: 1px solid color-mix(in srgb, var(--danger) 40%, var(--line));
+  background: linear-gradient(135deg, rgba(255, 77, 109, 0.08), rgba(83, 234, 253, 0.05));
+  animation: toon-in 0.5s cubic-bezier(0.2, 1.4, 0.4, 1);
+}
+
+.toon-card--compact {
+  grid-template-columns: 110px minmax(0, 1fr);
+  gap: 12px;
+  padding: 12px 14px;
+  border-radius: 16px;
+}
+
+.toon-card__art svg {
+  width: 100%;
+  height: auto;
+  display: block;
+  overflow: visible;
+}
+
+.toon-card__text {
+  display: grid;
+  gap: 4px;
+}
+
+.toon-card__code {
+  font: 700 11.5px var(--font-mono);
+  letter-spacing: 0.2em;
+  color: var(--danger);
+}
+
+.toon-card__text strong {
+  font: 700 clamp(1.2rem, 3vw, 1.7rem) var(--font-display);
+  color: #fff;
+}
+
+.toon-card--compact .toon-card__text strong {
+  font-size: 1.05rem;
+}
+
+.toon-card__text p {
+  margin: 0;
+  color: var(--text-soft);
+}
+
+.toon-card--compact .toon-card__text p {
+  font-size: 13.5px;
+}
+
+.toon-card__detail {
+  font-size: 13px;
+  color: var(--muted) !important;
+}
+
+.toon-card__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+@keyframes toon-in {
+  from {
+    opacity: 0;
+    transform: scale(0.92) translateY(8px);
+  }
+}
+
+/* Only animated parts use their own box as the transform origin; parts
+   positioned with an SVG transform attribute keep the normal behaviour. */
+.toon [class*='t-'] {
+  transform-box: fill-box;
+}
+
+/* shared moves */
+.toon .t-blink { animation: t-blink 1.1s steps(2) infinite; }
+.toon .t-bob { animation: t-bob 1.6s ease-in-out infinite; transform-origin: center; }
+.toon .t-d1 { animation-delay: 0.3s !important; }
+.toon .t-d2 { animation-delay: 0.6s !important; }
+@keyframes t-blink { 50% { opacity: 0.15; } }
+@keyframes t-bob { 50% { transform: translateY(-6px); } }
+
+/* robot */
+.toon--robot .t-tilt { transform-origin: 50% 100%; animation: t-tilt 2.4s ease-in-out infinite; }
+.toon--robot .t-scan { animation: t-scan 2s ease-in-out infinite; }
+.toon--robot .t-q text { animation: t-rise 2.4s ease-in infinite; }
+.toon--robot .t-q text:nth-child(2) { animation-delay: 0.8s; }
+.toon--robot .t-q text:nth-child(3) { animation-delay: 1.6s; }
+@keyframes t-tilt { 25% { transform: rotate(-10deg); } 75% { transform: rotate(10deg); } }
+@keyframes t-scan { 30% { transform: translateX(-5px); } 70% { transform: translateX(5px); } }
+@keyframes t-rise { 0% { transform: translateY(10px); opacity: 0; } 30% { opacity: 1; } 100% { transform: translateY(-30px) rotate(20deg); opacity: 0; } }
+
+/* cat */
+.toon--cat .t-shake { transform-origin: 50% 100%; animation: t-shake 0.9s ease-in-out infinite; }
+.toon--cat .t-swing { transform-origin: 50% 0; animation: t-swing 1.8s ease-in-out infinite; }
+@keyframes t-shake { 25% { transform: rotate(-9deg); } 75% { transform: rotate(9deg); } }
+@keyframes t-swing { 50% { transform: rotate(14deg); } }
+
+/* penguin */
+.toon--penguin .t-groove { transform-origin: 50% 100%; animation: t-groove 0.8s ease-in-out infinite; }
+.toon--penguin .t-rope { animation: t-rope 1.6s ease-in-out infinite; }
+@keyframes t-groove { 50% { transform: translateY(-4px) rotate(3deg); } }
+@keyframes t-rope { 50% { transform: translateY(5px); } }
+
+/* astronaut */
+.toon--astro .t-float { transform-origin: center; animation: t-float 6s ease-in-out infinite; }
+.toon--astro .t-twinkle { animation: t-blink 1.4s ease-in-out infinite; }
+.toon--astro .t-tether { animation: t-dash 2s linear infinite; }
+@keyframes t-float { 0%, 100% { transform: translate(0, 0) rotate(-8deg); } 50% { transform: translate(6px, -12px) rotate(10deg); } }
+@keyframes t-dash { to { stroke-dashoffset: -24; } }
+
+/* snail */
+.toon--snail .t-crawl { animation: t-crawl 7s ease-in-out infinite alternate; }
+.toon--snail .t-hand { transform-origin: 50% 100%; animation: t-tick 2s steps(8) infinite; }
+@keyframes t-crawl { from { transform: translateX(-22px); } to { transform: translateX(22px); } }
+@keyframes t-tick { to { transform: rotate(360deg); } }
+
+/* clones */
+.toon--clones .t-left { animation: t-bumpL 1.6s ease-in-out infinite; }
+.toon--clones .t-right { animation: t-bumpR 1.6s ease-in-out infinite; }
+.toon--clones .t-pop { transform-origin: center; animation: t-pop 1.6s ease-in-out infinite; }
+@keyframes t-bumpL { 0%, 100% { transform: translateX(-18px); } 45% { transform: translateX(8px) scaleX(0.9); } 55% { transform: translateX(4px); } }
+@keyframes t-bumpR { 0%, 100% { transform: translateX(18px); } 45% { transform: translateX(-8px) scaleX(0.9); } 55% { transform: translateX(-4px); } }
+@keyframes t-pop { 0%, 40%, 100% { transform: scale(0); } 50% { transform: scale(1.2); } 70% { transform: scale(0.9); } }
+
+/* ice cream */
+.toon--ice .t-sun { transform-origin: center; animation: t-tick 12s linear infinite; }
+.toon--ice .t-melt { transform-origin: 50% 100%; animation: t-melt 3s ease-in-out infinite; }
+.toon--ice .t-drip { animation: t-drip 1.8s ease-in infinite; }
+.toon--ice .t-puddle { transform-origin: center; animation: t-puddle 3s ease-in-out infinite; }
+@keyframes t-melt { 50% { transform: scaleY(0.9) scaleX(1.04); } }
+@keyframes t-drip { from { transform: translateY(0); opacity: 1; } to { transform: translateY(60px); opacity: 0; } }
+@keyframes t-puddle { 50% { transform: scaleX(1.15); } }
+
+/* hamster */
+.toon--hamster .t-spin { transform-origin: center; animation: t-tick 0.9s linear infinite reverse; }
+.toon--hamster .t-run { animation: t-bob 0.3s ease-in-out infinite; }
+.toon--hamster .t-sweat { animation: t-fly 0.9s ease-out infinite; }
+@keyframes t-fly { from { transform: translate(0, 0); opacity: 1; } to { transform: translate(18px, -14px); opacity: 0; } }
+
+/* dino */
+.toon--dino .t-chomp { transform-origin: 0% 100%; animation: t-chomp 0.5s ease-in-out infinite; }
+.toon--dino .t-spark { transform-origin: center; animation: t-pop 0.8s ease-in-out infinite; }
+.toon--dino .t-smoke { animation: t-smoke 2.4s ease-out infinite; }
+@keyframes t-chomp { 50% { transform: rotate(-14deg); } }
+@keyframes t-smoke { from { transform: translateY(0) scale(0.6); opacity: 0.7; } to { transform: translateY(-50px) scale(1.6); opacity: 0; } }
+
+/* sleepy cloud */
+.toon--sleepy .t-breathe { transform-origin: 50% 100%; animation: t-breathe 3.2s ease-in-out infinite; }
+.toon--sleepy .t-z text { animation: t-rise 3s ease-in infinite; }
+.toon--sleepy .t-z text:nth-child(2) { animation-delay: 1s; }
+.toon--sleepy .t-z text:nth-child(3) { animation-delay: 2s; }
+@keyframes t-breathe { 50% { transform: scale(1.04, 0.96); } }
+
+/* plug */
+.toon--plug .t-walk { animation: t-walk 2.4s ease-in-out infinite alternate; }
+.toon--plug .t-wifi { animation: t-blink 1.2s ease-in-out infinite; }
+@keyframes t-walk { 0% { transform: translateX(-10px) rotate(-3deg); } 100% { transform: translateX(14px) rotate(3deg); } }
+
+html[data-lite='1'] .toon *,
+html[data-lite='1'] .toon-card {
+  animation: none !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .toon *,
+  .toon-card {
+    animation: none !important;
+  }
+}
+
+@media (max-width: 600px) {
+  .toon-card {
+    grid-template-columns: minmax(0, 1fr);
+    text-align: center;
+    justify-items: center;
+  }
+  .toon-card__art {
+    max-width: 200px;
+  }
+  .toon-card--compact {
+    grid-template-columns: 90px minmax(0, 1fr);
+    text-align: left;
+    justify-items: stretch;
+  }
+  .toon-card__actions {
+    justify-content: center;
+  }
+}

@@ -22,6 +22,9 @@ export function parseHash(hash = window.location.hash) {
   if (parts[0] === 'glossary') return { name: 'glossary', term: parts[1] };
   if (parts[0] === 'handbook') return { name: 'handbook', topic: parts[1] };
   if (parts[0] === 'profile') return { name: 'profile' };
+  // A real page link (#/something) that matches nothing is a 404; plain
+  // in-page anchors like #session-map are not.
+  if (path.startsWith('/') && parts.length) return { name: 'notfound' };
   return { name: 'home' };
 }
 

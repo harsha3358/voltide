@@ -12,6 +12,12 @@ import Handbook from './pages/Handbook.jsx';
 import Profile from './pages/Profile.jsx';
 import Toasts from './components/Toasts.jsx';
 import { BackToTop, ScrollProgress } from './components/Extras.jsx';
+import NotFound from './pages/NotFound.jsx';
+import ErrorBoundary from './components/ErrorBoundary.jsx';
+import AuthScreen from './components/AuthScreen.jsx';
+import { backendEnabled } from './lib/backend.js';
+import { useAuth, verify } from './lib/auth.js';
+import { track } from './lib/track.js';
 
 function Shell() {
   const route = useRoute();
@@ -21,6 +27,12 @@ function Shell() {
     if (lite) stopSmoothScroll();
     else startSmoothScroll();
   }, [lite]);
+
+  // Every page opened goes to the Activity sheet (when logged in).
+  const where = JSON.stringify(route);
+  useEffect(() => {
+    track('Page view', window.location.hash || '#/', document.title);
+  }, [where]);
 
   // Pages own their scroll position on deep links; otherwise start at the top.
   const pageKey = `${route.name}-${route.session ?? ''}-${route.view ?? ''}`;
@@ -34,6 +46,7 @@ function Shell() {
   else if (route.name === 'glossary') page = <Glossary route={route} />;
   else if (route.name === 'handbook') page = <Handbook route={route} />;
   else if (route.name === 'profile') page = <Profile />;
+  else if (route.name === 'notfound') page = <NotFound />;
   else page = <Home />;
 
   return (
@@ -41,18 +54,30 @@ function Shell() {
       <Nav route={route} />
       <ScrollProgress />
       <BackToTop />
-      <main key={pageKey}>{page}</main>
+      <main key={pageKey}>
+        <ErrorBoundary resetKey={pageKey}>{page}</ErrorBoundary>
+      </main>
       <div className="grain" aria-hidden="true" />
       <Toasts />
     </div>
   );
 }
 
+// With Google Sheets connected, students log in first; otherwise straight in.
+function Gate() {
+  const auth = useAuth();
+  useEffect(() => {
+    verify();
+  }, []);
+  if (backendEnabled && !auth) return <AuthScreen />;
+  return <Shell />;
+}
+
 export default function App() {
   return (
     <EffectsProvider>
       <SparkProvider>
-        <Shell />
+        <Gate />
       </SparkProvider>
     </EffectsProvider>
   );

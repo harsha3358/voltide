@@ -17,6 +17,9 @@
 - Students use free tiers with a billing alert, and **stop or delete temporary cloud resources after the workshop**.
 - Restate the golden rule at the start of every episode: *stop what you start.*
 
+## Student accounts (Google Sheets)
+If the site is connected to the Google Sheet (see `google-sheets/README.md`), students sign up and log in, and their progress is saved to their account. On shared PCs, students simply **log out** from their profile when they finish; the next student logs in to their own account. Watch the **Overview** tab of the sheet during class to see who is active and the live leaderboard.
+
 ## Shared lab PCs: resetting between students
 Open the **profile** (click the XP bar) and scroll to **Reset**:
 - **Reset score** clears XP, badges, combos and boss results. Mission progress, checklists and unlocked episodes stay. Use it to replay the game.

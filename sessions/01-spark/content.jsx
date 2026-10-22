@@ -273,12 +273,12 @@ export default {
       kicker: 'Context',
       title: 'How we got here: a quick history of the cloud',
       lead: 'In about 20 years, renting computers went from a weird idea to how almost every app on your phone works.',
-      plain: 'The cloud grew in stages: rent storage and servers (2006), rent platforms (2008), containers (2013), serverless (2014) and local regions in India (2016 onwards).',
+      plain: 'The cloud grew in stages: an idea (1961), rent servers and storage (2006), rent platforms (2008), containers and serverless (2013–14), regions in India (2016), everyone online (2020) and now the AI cloud (2022 to today).',
       analogy: {
         type: 'electric',
         text: 'A century ago every factory had its own power generator. Then the power grid arrived and they all plugged in. Computing went through the same shift: from each company’s own server room to the shared cloud.'
       },
-      visual: { caption: 'Cloud computing timeline', el: <CloudTimeline /> },
+      visual: { caption: 'Cloud computing timeline · 1961 to today', note: 'tap a year or press play', el: <CloudTimeline /> },
       links: [{ href: 'https://en.wikipedia.org/wiki/Cloud_computing', label: 'Read: Cloud computing (Wikipedia)' }],
       check: {
         q: 'Which idea lets you run code only when something happens, paying per millisecond?',

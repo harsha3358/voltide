@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useState } from 'react';
+import { track } from './track.js';
 
 const KEY = 'voltide:progress';
 const EVENT = 'voltide:progress';
@@ -24,6 +25,7 @@ export function useProgress() {
     const key = `${session}:${topic}`;
     if (next[key]) delete next[key];
     else next[key] = Date.now();
+    track(next[key] ? 'Mission done' : 'Mission undone', `Episode 0${session} · ${topic}`);
     try {
       localStorage.setItem(KEY, JSON.stringify(next));
     } catch {}

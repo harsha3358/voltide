@@ -32,7 +32,7 @@ VOLTIDE fixes all three. It teaches from absolute zero, in plain words, with a g
 
 ## 2. What VOLTIDE is, in one paragraph
 
-VOLTIDE is a website. Students open it in a browser, on a lab PC or their phone, and work through **four episodes** that follow the workshop plan exactly. Each episode is a series of short **missions**. A mission explains one idea in plain language, lets students play with an interactive demo, gives them real commands to type on their own machine, and ends with a quick question. Students earn XP and badges as they go, decode a secret message, and finish each episode by fighting a "boss" (a timed quiz). There are no logins, no accounts and no data collection. Everything a student does is saved only in their own browser.
+VOLTIDE is a website. Students open it in a browser, on a lab PC or their phone, and work through **four episodes** that follow the workshop plan exactly. Each episode is a series of short **missions**. A mission explains one idea in plain language, lets students play with an interactive demo, gives them real commands to type on their own machine, and ends with a quick question. Students earn XP and badges as they go, decode a secret message, and finish each episode by fighting a "boss" (a timed quiz). When it's connected to our Google Sheet, students **sign up and log in**, and every login and learning step is recorded in the sheet, so you can see exactly who did what (section 10). Without the sheet connected, it runs with no accounts and saves progress only in the browser.
 
 ---
 
@@ -185,7 +185,9 @@ Be honest with students about what this is: a **classroom gate, not real securit
 
 ## 9. Shared lab PCs: resetting between students
 
-Progress is saved **only in each browser**, so on shared PCs you must reset between students.
+**With accounts on (section 10):** students just **log out** when they're done. Their progress is saved to their account, and the next student logs in to their own. The buttons below are only for a student who wants to start over.
+
+**Without accounts:** progress is saved **only in each browser**, so on shared PCs you must reset between students.
 
 1. Tap the **XP bar** at the top of the page to open the **profile**.
 2. Scroll to **Reset (shared lab PCs)**.
@@ -200,7 +202,33 @@ Both ask you to confirm first. **Reset everything** takes the browser back to th
 
 ---
 
-## 10. Non-negotiables: cost and safety
+## 10. Student accounts and activity tracking (Google Sheets)
+
+VOLTIDE can record every student's logins and learning in our Google Sheet: [VOLTIDE tracking sheet](https://docs.google.com/spreadsheets/d/15bMM6BLLT0-MfPz6LCke1SzORNdXietU_ySdHOvtL_g/edit). The full setup is in [`google-sheets/README.md`](google-sheets/README.md). In short:
+
+1. Paste [`google-sheets/Code.gs`](google-sheets/Code.gs) into the sheet (**Extensions → Apps Script**) and run `setup` once.
+2. **Deploy → New deployment → Web app** (Execute as: Me · Who has access: Anyone) and copy the URL.
+3. In Vercel, add the environment variable `VITE_SHEETS_API` = that URL, then **Redeploy**.
+
+What students then see:
+- A **log in / sign up** screen first: name, registration number, email and password.
+- **Forgot password?** emails them a 6-digit OTP. On their profile they can **change their password**, also with an OTP.
+- Their progress is saved to their account, so they can log in on **any PC** and carry on.
+
+What you then see in the sheet:
+
+| Tab | What it shows you |
+|---|---|
+| **Overview** | Students signed up, logins today, active in the last hour, missions completed, average XP, failed logins, a **top-15 leaderboard** and the last 15 logins |
+| **Students** | One row per student: reg. no., name, email, last login, login count, last active, XP, rank, badges, missions done, episodes unlocked, current page |
+| **Logins** | Every sign-up, login, wrong password, logout, OTP and password change, with time and device |
+| **Activity** | Every page opened, checkpoint (right or wrong), mission done, lab step, demo goal, badge, boss win or loss, unlock attempt and reset, with time and XP |
+
+Rules: keep the sheet **private** (it holds names and emails); passwords are stored only as salted hashes, never in plain text; tell students what is collected.
+
+---
+
+## 11. Non-negotiables: cost and safety
 
 These are the rules I will not bend on.
 
@@ -214,7 +242,7 @@ VOLTIDE repeats these rules all the way through, and the final mission is a clea
 
 ---
 
-## 11. When things go wrong
+## 12. When things go wrong
 
 Each field guide has its own troubleshooting table. These are the most common problems:
 
@@ -229,11 +257,11 @@ Each field guide has its own troubleshooting table. These are the most common pr
 | Still see "Welcome to nginx!" | The file isn't in place: `sudo mv ~/index.html /var/www/html/index.html` |
 | Site broke after stopping and starting the server | The **public IP changed**. Copy the new one from the EC2 console |
 | A student's episode is locked again | Their browser was reset or is in private mode. They type the password again |
-| No internet in the lab at all | Run VOLTIDE from your laptop (section 12); every lab also works on the local Ubuntu VM |
+| No internet in the lab at all | Run VOLTIDE from your laptop (section 13); every lab also works on the local Ubuntu VM |
 
 ---
 
-## 12. Running it without the live site
+## 13. Running it without the live site
 
 You'll rarely need this, but you should know it's possible.
 
@@ -250,11 +278,11 @@ You'll rarely need this, but you should know it's possible.
 
 ---
 
-## 13. Updating the live site
+## 14. Updating the live site
 
 The live site at [voltide.vercel.app](https://voltide.vercel.app/) is hosted on **Vercel** and connected to our **GitHub** repo.
 
-1. Make your change (see section 14) and commit it.
+1. Make your change (see section 15) and commit it.
 2. Push to the `main` branch on GitHub.
 3. Vercel rebuilds and publishes automatically within a few minutes. You don't need to do anything else.
 
@@ -264,7 +292,7 @@ Settings already in the repo (`vercel.json`): framework **Vite**, install `npm c
 
 ---
 
-## 14. Changing the content
+## 15. Changing the content
 
 You can change almost everything without touching the engine.
 
@@ -277,11 +305,11 @@ You can change almost everything without touching the engine.
 | Give a mission a specific colour or pattern | add `theme: { a: '#hex', b: '#hex', motif: 'waves' }` to that mission in `content.jsx` |
 | Change the student handbook | `guide.md` (also shown in the app at `#/handbook`) |
 
-After any change, push to GitHub and the live site updates (section 13).
+After any change, push to GitHub and the live site updates (section 14).
 
 ---
 
-## 15. Links you can share
+## 16. Links you can share
 
 | Link | Opens |
 |---|---|
@@ -295,25 +323,27 @@ After any change, push to GitHub and the live site updates (section 13).
 
 ---
 
-## 16. Questions you'll be asked
+## 17. Questions you'll be asked
 
-**Do students need to sign up?** No. There are no accounts. They just open the link.
+**Do students need to sign up?** Only when the Google Sheet is connected (section 10). Then they sign up once with their name, registration number, email and a password, and log in after that. Without it, they just open the link.
 
-**Do we collect any student data?** No. Progress lives in each student's own browser and never leaves it. No server, no database, no tracking.
+**Do we collect any student data?** Only with the Google Sheet connected: name, registration number, email, login times and devices, and what they do in VOLTIDE, all in our private sheet. Passwords are never stored, only salted hashes. Without the sheet, nothing leaves the student's browser.
+
+**A student forgot their password.** They click **Forgot password?** on the login screen and get a 6-digit code by email. Nobody, including you, can see their password.
 
 **Will it work on phones?** Yes. Every page works on a phone, with a navigation bar at the bottom. Labs still need a laptop or lab PC, because students type commands.
 
-**Can a student lose their progress?** Only if their browser data is cleared, they use a private window, or someone presses **Reset everything**. Tell them to use the same browser on the same device for both days.
+**Can a student lose their progress?** With accounts on, no: it's saved to their account and comes back when they log in anywhere, unless they press **Reset everything** themselves. Without accounts, it's lost if their browser data is cleared, they use a private window, or someone presses **Reset everything**.
 
-**Does any demo cost money?** No. Every demo on the site is simulated. Only the real labs on AWS / Google Cloud can cost money, and section 10 covers that.
+**Does any demo cost money?** No. Every demo on the site is simulated. Only the real labs on AWS / Google Cloud can cost money, and section 11 covers that.
 
 **The 3D effects are slowing the PC down.** Press the **⚡ button** for lite mode. It's switched on automatically for anyone whose device asks for reduced motion.
 
-**What if the internet goes down?** Run it locally (section 12). Every lab also works on the local Ubuntu VM.
+**What if the internet goes down?** Run it locally (section 13). Every lab also works on the local Ubuntu VM.
 
 ---
 
-## 17. Where everything lives
+## 18. Where everything lives
 
 ```
 voltide/
@@ -321,6 +351,7 @@ voltide/
 ├── guide.md             ← student handbook (also in-app at #/handbook)
 ├── PLAN.md              ← every mission in every episode + design notes
 ├── facilitator/         ← unlock password, teaching notes, workshop PDF, password tool
+├── google-sheets/       ← Code.gs (paste into Apps Script) + step-by-step setup
 ├── sessions/
 │   ├── index.js         ← the 4 episodes: names, colours, lock, password, 3D scene
 │   ├── 01-spark/        ← README.md · guide.md · content.jsx · demos/ · visuals/

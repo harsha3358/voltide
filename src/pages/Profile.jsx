@@ -8,6 +8,10 @@ import { Icon } from '../components/Glyphs.jsx';
 import ElectricBorder from '../vendor/reactbits/ElectricBorder/ElectricBorder.jsx';
 import CountUp from '../vendor/reactbits/CountUp/CountUp.jsx';
 import ShinyText from '../vendor/reactbits/ShinyText/ShinyText.jsx';
+import { OtpReset } from '../components/AuthScreen.jsx';
+import { logout, useAuth } from '../lib/auth.js';
+import { backendEnabled } from '../lib/backend.js';
+import { flush } from '../lib/track.js';
 
 // Your agent profile: handle, rank, badge cabinet and the Episode 01 certificate.
 export default function Profile() {
@@ -17,6 +21,8 @@ export default function Profile() {
   const [name, setName] = useState(g.handle);
   const [resetMode, setResetMode] = useState(null);
   const [resetDone, setResetDone] = useState('');
+  const auth = useAuth();
+  const [changing, setChanging] = useState(false);
   const earned = Object.keys(g.badges).filter(id => BADGES[id]).length;
   const pct = r.next ? ((g.xp - r.floor) / (r.next - r.floor)) * 100 : 100;
   const doneEpisodes = SESSIONS.filter(s => g.badges[`boss-${s.number}`] && g.badges[`decoder-${s.number}`]).length;
@@ -122,9 +128,32 @@ export default function Profile() {
           )}
         </div>
 
+        {backendEnabled && auth && (
+          <section className="card account-card" aria-labelledby="account-h">
+            <h2 id="account-h" style={{ fontSize: '1.4rem' }}>Your account</h2>
+            <dl>
+              <dt>Name</dt>
+              <dd>{auth.user.name}</dd>
+              <dt>Reg. no.</dt>
+              <dd>{auth.user.regNo}</dd>
+              <dt>Email</dt>
+              <dd>{auth.user.email}</dd>
+            </dl>
+            <p className="d-note" style={{ margin: 0 }}>Your progress is saved to your account, so you can log in on any computer and carry on.</p>
+            {changing ? (
+              <OtpReset fixedId={auth.user.regNo} purpose="change" onBack={() => setChanging(false)} />
+            ) : (
+              <div className="d-row">
+                <button type="button" className="btn btn--sm" onClick={() => setChanging(true)}>🔑 Change password (OTP)</button>
+                <button type="button" className="btn btn--sm btn--ghost" onClick={() => logout(flush)}>Log out</button>
+              </div>
+            )}
+          </section>
+        )}
+
         <section className="card reset-panel" aria-labelledby="reset-h">
-          <h2 id="reset-h" style={{ fontSize: '1.4rem' }}>Reset (shared lab PCs)</h2>
-          <p className="d-note" style={{ marginTop: 0 }}>Handing this computer to the next student? Pick one.</p>
+          <h2 id="reset-h" style={{ fontSize: '1.4rem' }}>{auth ? 'Reset my progress' : 'Reset (shared lab PCs)'}</h2>
+          <p className="d-note" style={{ marginTop: 0 }}>{auth ? 'Handing this computer to the next student? Just log out: your progress is saved. Use these only to start over.' : 'Handing this computer to the next student? Pick one.'}</p>
           {resetMode === null && (
             <div className="reset-grid">
               <button type="button" className="reset-opt" onClick={() => setResetMode('score')}>
@@ -133,7 +162,7 @@ export default function Profile() {
               </button>
               <button type="button" className="reset-opt reset-opt--danger" onClick={() => setResetMode('all')}>
                 <strong>Reset everything</strong>
-                <span>Wipes all activity: score, badges, missions, secret messages, unlocked episodes, boss results and intros. Like a brand-new browser.</span>
+                <span>{auth ? 'Wipes your whole progress, here and in your saved account: score, badges, missions, secret messages, unlocked episodes. You stay logged in.' : 'Wipes all activity: score, badges, missions, secret messages, unlocked episodes, boss results and intros. Like a brand-new browser.'}</span>
               </button>
             </div>
           )}
