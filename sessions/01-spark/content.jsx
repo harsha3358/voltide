@@ -343,7 +343,7 @@ export default {
           { do: 'Download and install **VirtualBox** from the [official VirtualBox downloads page](https://www.virtualbox.org/wiki/Downloads) (pick your OS). Prefer VMware? [VMware Workstation Pro is free for personal use](https://support.broadcom.com/) via a free Broadcom account.' },
           { do: 'Download the **Ubuntu Desktop** ISO from [ubuntu.com/download/desktop](https://ubuntu.com/download/desktop) (a Long-Term Support version). Optional but pro: [verify the download](https://ubuntu.com/tutorials/how-to-verify-ubuntu).' },
           { do: 'In VirtualBox click **New** → name `ubuntu-lab` → choose the ISO → give it **2 CPUs, 4 GB RAM, 25 GB disk** → Finish. These are the same choices you make when picking a cloud machine size.' },
-          { do: 'Start the VM and follow the Ubuntu installer. Create user `student` with a password you will remember.' },
+          { do: 'Start the VM and follow the Ubuntu installer. Create user `student` with the workshop password `Next@123` (so your facilitator can help you if you get stuck).' },
           { do: 'Leave the network on **NAT** (the default) so the VM uses your laptop’s internet.' },
           { do: 'Open **Terminal** in Ubuntu and update everything:', cmd: 'sudo apt update && sudo apt upgrade -y', out: 'Hit:1 http://archive.ubuntu.com/ubuntu noble InRelease\n…\n0 upgraded, 0 newly installed, 0 to remove' },
           { do: 'Check the internet works from inside the VM:', cmd: 'ping -c 4 google.com', out: '64 bytes from …: icmp_seq=1 ttl=117 time=12.4 ms\n…\n4 packets transmitted, 4 received, 0% packet loss' },

@@ -2,26 +2,28 @@
 
 > Keep this folder to yourself. It contains the unlock codes.
 
-## Unlock codes
+## Unlock password
 
-| Session | Code |
+All locked episodes (02 · CURRENT, 03 · TIDE, 04 · SURGE) open with the same password:
+
+| Episodes | Password |
 |---|---|
-| 02 · CURRENT | `CURRENT-FLOWS` |
-| 03 · TIDE | `TIDE-TURNS` |
-| 04 · SURGE | `SURGE-READY` |
+| 02, 03, 04 | `Next@123` |
 
-Codes are case-insensitive. Type one on a locked session's page to open it in **that browser** (it is remembered in local storage).
+Type it on a locked episode's page to open it in **that browser** (it is remembered in local storage). Letter case doesn't matter.
+
+The same `Next@123` is the suggested password for the student account on the workshop's Ubuntu lab VM (Episode 01 lab), so everyone in the room uses one password.
 
 ## Three ways to release a session
 1. **In class, per device:** read the code aloud or write it on the board.
 2. **For everyone, at build time:** `VITE_UNLOCKED_SESSIONS=1,2 npm run build`, then redeploy `dist/`.
 3. **Permanently:** set `locked: false` for that session in `sessions/index.js`.
 
-## Change a code
+## Change the password
 ```bash
-npm run facilitator:hash -- NEW-CODE
+npm run facilitator:hash -- NEW-PASSWORD
 ```
-Paste the printed `unlockHash` into `sessions/index.js`.
+Paste the printed `unlockHash` into each locked episode in `sessions/index.js`.
 
 > This lock is a classroom gate, not real security: the content ships to the browser. That's a good teaching moment in Episode 04 ("protect credentials"), because anything shipped to the browser is public.
 

@@ -54,7 +54,7 @@ export const SESSIONS = [
     backdrop: 'world',
     world: { palette: { deep: '#0a2a6e', crest: '#2b7fff', flash: '#8ec5ff', core: '#53eafd' }, mood: 'current' },
     locked: true,
-    unlockHash: '8782ddb0dc18dfa0109ba9d305784c7a24861d96fd5fa98c378560c5d1f6fea7',
+    unlockHash: 'ff7b7fb714f62a9947627e90dcab8be0ae9fe62317982d04af7d0ee16777d745',
     load: () => import('./02-current/content.jsx'),
     guide: () => import('./02-current/guide.md?raw')
   },
@@ -81,7 +81,7 @@ export const SESSIONS = [
     backdrop: 'world',
     world: { palette: { deep: '#06403c', crest: '#46ecd5', flash: '#53eafd', core: '#00bba7' }, mood: 'tide' },
     locked: true,
-    unlockHash: '21eb92bcf3b0bee8ea11b2e6be7abaf2cb0bc6f6b24a92a592e7db3a9a151c38',
+    unlockHash: 'ff7b7fb714f62a9947627e90dcab8be0ae9fe62317982d04af7d0ee16777d745',
     load: () => import('./03-tide/content.jsx'),
     guide: () => import('./03-tide/guide.md?raw')
   },
@@ -107,7 +107,7 @@ export const SESSIONS = [
     backdrop: 'world',
     world: { palette: { deep: '#2a0f5e', crest: '#8e51ff', flash: '#e12afb', core: '#e12afb' }, mood: 'surge' },
     locked: true,
-    unlockHash: 'c7d46a4f956bd9d66277ff2b7a58ad36498e7f8eea988377c950420a3e78662c',
+    unlockHash: 'ff7b7fb714f62a9947627e90dcab8be0ae9fe62317982d04af7d0ee16777d745',
     load: () => import('./04-surge/content.jsx'),
     guide: () => import('./04-surge/guide.md?raw')
   }

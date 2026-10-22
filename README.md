@@ -35,7 +35,7 @@ Then on [vercel.com/new](https://vercel.com/new), import the repo. `vercel.json`
 
 - Routing is hash-based (`#/session/1`), so deep links work on Vercel with no rewrite rules.
 - To release locked episodes for everyone, add the env var `VITE_UNLOCKED_SESSIONS=1,2` in Vercel → Settings → Environment Variables, then redeploy (see `.env.example`).
-- Keep the repo **private** if students must not see `facilitator/` (it contains the unlock codes), or change the codes first with `npm run facilitator:hash -- NEW-CODE`.
+- Keep the repo **private** if students must not see `facilitator/` (it contains the unlock codes), or change the password first with `npm run facilitator:hash -- NEW-PASSWORD`.
 
 ## Project structure
 
