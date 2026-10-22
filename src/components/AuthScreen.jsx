@@ -91,7 +91,7 @@ function LoginForm({ onForgot, onSignup }) {
   const [pw, setPw] = useState('');
   const { busy, error, run } = useSubmit();
   return (
-    <form className="auth__form" onSubmit={e => (e.preventDefault(), run(() => login(id.trim(), pw)))}>
+    <form className="auth__form" onSubmit={e => (e.preventDefault(), run(() => login(String(id).trim(), pw)))}>
       <h2>Welcome back 👋</h2>
       <Err error={error} />
       <Field label="Registration number or email" value={id} onChange={e => setId(e.target.value)} autoComplete="username" required autoFocus />
@@ -112,7 +112,7 @@ function SignupForm({ onLogin }) {
   const submit = e => {
     e.preventDefault();
     if (f.password !== f.confirm) return setError(new ApiError(400, 'The two passwords don’t match.'));
-    run(() => signup({ name: f.name.trim(), regNo: f.regNo.trim(), email: f.email.trim(), password: f.password }));
+    run(() => signup({ name: f.name.trim(), regNo: String(f.regNo).trim(), email: f.email.trim(), password: f.password }));
   };
   return (
     <form className="auth__form" onSubmit={submit}>
@@ -134,7 +134,7 @@ function SignupForm({ onLogin }) {
 // Step 1: send a code to the email. Step 2: code + new password.
 // Also used on the profile page to change a password (purpose = 'change').
 export function OtpReset({ onBack, fixedId, purpose = 'forgot' }) {
-  const [id, setId] = useState(fixedId || '');
+  const [id, setId] = useState(fixedId == null ? '' : String(fixedId));
   const [sent, setSent] = useState(null);
   const [otp, setOtp] = useState('');
   const [pw, setPw] = useState('');
@@ -148,14 +148,14 @@ export function OtpReset({ onBack, fixedId, purpose = 'forgot' }) {
   }, [wait]);
   const send = () =>
     run(async () => {
-      const d = await requestOtp(id.trim(), purpose);
+      const d = await requestOtp(String(id).trim(), purpose);
       setSent(d);
       setWait(60);
     });
   const change = e => {
     e.preventDefault();
     if (pw !== confirm) return setError(new ApiError(400, 'The two passwords don’t match.'));
-    run(() => resetPassword(id.trim(), otp.trim(), pw));
+    run(() => resetPassword(String(id).trim(), otp.trim(), pw));
   };
   return (
     <div className="auth__form">

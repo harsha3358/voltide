@@ -10,10 +10,14 @@ const EVENT = 'voltide:auth';
 // localStorage keys that are this device's settings or login, not progress.
 const NOT_PROGRESS = new Set(['voltide:lite', KEY, OWNER]);
 
+// Google Sheets turns all-digit registration numbers into numbers, so the
+// user fields are always normalised to text.
+const norm = u => ({ regNo: String(u?.regNo ?? ''), name: String(u?.name ?? ''), email: String(u?.email ?? '') });
+
 function read() {
   try {
     const a = JSON.parse(localStorage.getItem(KEY) || 'null');
-    return a?.token && a?.user ? a : null;
+    return a?.token && a?.user ? { token: a.token, user: norm(a.user) } : null;
   } catch {
     return null;
   }
@@ -52,7 +56,8 @@ const xpOf = raw => {
   }
 };
 
-function applySession({ token, user, progress }) {
+function applySession({ token, user: raw, progress }) {
+  const user = norm(raw);
   try {
     const owner = localStorage.getItem(OWNER);
     // Someone else's progress on this PC: clear it before loading ours.
@@ -102,7 +107,7 @@ export async function verify() {
   if (!backendEnabled || !auth) return;
   try {
     const d = await api('me', { token: auth.token });
-    auth = { ...auth, user: d.user };
+    auth = { ...auth, user: norm(d.user) };
     localStorage.setItem(KEY, JSON.stringify(auth));
     window.dispatchEvent(new Event(EVENT));
   } catch (e) {

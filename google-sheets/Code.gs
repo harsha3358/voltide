@@ -35,6 +35,9 @@ const COLUMNS = {
   Sessions: ['Token', 'Registration No', 'Created', 'Expires', 'Device'],
   OTP: ['Registration No', 'Email', 'Code hash', 'Expires', 'Attempts', 'Purpose', 'Created']
 };
+// Columns that hold registration numbers. They're kept as plain text so
+// Sheets never turns "24101234" into a number or drops a leading zero.
+const TEXT_COLS = { Students: [1], Sessions: [2], OTP: [1], Logins: [2], Activity: [2] };
 // Student columns (1-based) used below.
 const S = { reg: 1, name: 2, email: 3, created: 4, lastLogin: 5, logins: 6, lastActive: 7, xp: 8, rank: 9, badges: 10, missions: 11, unlocked: 12, page: 13, hash: 14, salt: 15, progress: 16 };
 
@@ -104,7 +107,7 @@ function signup(b) {
   row[S.unlocked - 1] = '1';
   row[S.hash - 1] = hashPassword(b.password, salt);
   row[S.salt - 1] = salt;
-  sheet('Students').appendRow(row.map(safe));
+  addRow('Students', row.map(safe));
   logLogin(reg, name, email, 'Signed up', b.device);
   return { token: newSession(reg, b.device), user: { regNo: reg, name: name, email: email }, progress: null };
 }
@@ -112,7 +115,7 @@ function signup(b) {
 function login(b) {
   const found = findStudent(b.id) || findStudentByEmail(b.id);
   if (!found) throw httpError(404, 'No account with that registration number or email. Sign up first.');
-  const reg = found.values[S.reg - 1];
+  const reg = String(found.values[S.reg - 1]);
   const cache = CacheService.getScriptCache();
   const failKey = 'fail:' + reg;
   const fails = Number(cache.get(failKey) || 0);
@@ -154,7 +157,7 @@ function me(b) {
 function requestOtp(b) {
   const st = findStudent(b.id) || findStudentByEmail(b.id);
   if (!st) throw httpError(404, 'No account with that registration number or email.');
-  const reg = st.values[S.reg - 1];
+  const reg = String(st.values[S.reg - 1]);
   const email = st.values[S.email - 1];
   const cache = CacheService.getScriptCache();
   if (cache.get('otp-wait:' + reg)) throw httpError(429, 'A code was just sent. Wait a minute before asking for another.');
@@ -162,9 +165,9 @@ function requestOtp(b) {
   const now = new Date();
   const otp = sheet('OTP');
   deleteRows(otp, function (r) {
-    return r[0] === reg;
+    return String(r[0]) === reg;
   });
-  otp.appendRow([reg, email, sha(code + reg), new Date(now.getTime() + OTP_MINUTES * 60000), 0, b.purpose === 'change' ? 'Change password' : 'Forgot password', now]);
+  addRow('OTP', [reg, email, sha(code + reg), new Date(now.getTime() + OTP_MINUTES * 60000), 0, b.purpose === 'change' ? 'Change password' : 'Forgot password', now]);
   cache.put('otp-wait:' + reg, '1', OTP_RESEND_SECONDS);
   MailApp.sendEmail({
     to: email,
@@ -186,11 +189,11 @@ function requestOtp(b) {
 function resetPassword(b) {
   const st = findStudent(b.id) || findStudentByEmail(b.id);
   if (!st) throw httpError(404, 'No account with that registration number or email.');
-  const reg = st.values[S.reg - 1];
+  const reg = String(st.values[S.reg - 1]);
   const otp = sheet('OTP');
   const rows = otp.getDataRange().getValues();
   let at = -1;
-  for (let i = 1; i < rows.length; i++) if (rows[i][0] === reg) at = i;
+  for (let i = 1; i < rows.length; i++) if (String(rows[i][0]) === reg) at = i;
   if (at < 0) throw httpError(410, 'No active code. Ask for a new one.');
   const r = rows[at];
   if (new Date(r[3]).getTime() < Date.now()) throw httpError(410, 'That code has expired. Ask for a new one.');
@@ -210,7 +213,7 @@ function resetPassword(b) {
   CacheService.getScriptCache().remove('fail:' + reg);
   // Changing the password logs the account out everywhere else.
   dropSessions(function (t, r2) {
-    return r2 === reg;
+    return String(r2) === reg;
   });
   logLogin(reg, st.values[S.name - 1], st.values[S.email - 1], 'Password changed', b.device);
   return { token: newSession(reg, b.device), user: userOf(st.values), progress: readProgress(st.row) };
@@ -219,7 +222,7 @@ function resetPassword(b) {
 // A batch of learning events plus a snapshot of the student's progress.
 function track(b) {
   const st = requireUser(b.token);
-  const reg = st.values[S.reg - 1];
+  const reg = String(st.values[S.reg - 1]);
   const name = st.values[S.name - 1];
   const events = (Array.isArray(b.events) ? b.events : []).slice(0, MAX_EVENTS_PER_CALL);
   if (events.length) {
@@ -227,7 +230,9 @@ function track(b) {
       return [toDate(ev.t), reg, name, cleanText(ev.episode, 20), cleanText(ev.type, 40), cleanText(ev.item, 120), cleanText(ev.detail, 300), Number(ev.xp) || '', Number(ev.total) || '', cleanText(ev.page, 120)].map(safe);
     });
     const act = sheet('Activity');
-    act.getRange(act.getLastRow() + 1, 1, rows.length, rows[0].length).setValues(rows);
+    const start = act.getLastRow() + 1;
+    act.getRange(start, 2, rows.length, 1).setNumberFormat('@');
+    act.getRange(start, 1, rows.length, rows[0].length).setValues(rows);
   }
   const s = b.snapshot;
   if (s && typeof s === 'object') {
@@ -260,8 +265,10 @@ function setup() {
   students.hideColumns(S.hash, 3); // password hash, salt, progress JSON
   ss.getSheetByName('Sessions').hideSheet();
   ss.getSheetByName('OTP').hideSheet();
-  ['Students', 'Logins', 'Activity'].forEach(function (n) {
-    ss.getSheetByName(n).getRange('A:A').setNumberFormat('@');
+  Object.keys(TEXT_COLS).forEach(function (n) {
+    TEXT_COLS[n].forEach(function (c) {
+      ss.getSheetByName(n).getRange(1, c, ss.getSheetByName(n).getMaxRows(), 1).setNumberFormat('@');
+    });
   });
   ss.getSheetByName('Logins').getRange('A:A').setNumberFormat('dd mmm yyyy, hh:mm');
   ss.getSheetByName('Activity').getRange('A:A').setNumberFormat('dd mmm yyyy, hh:mm:ss');
@@ -306,6 +313,16 @@ function cleanup() {
 /* Helpers                                                             */
 /* ------------------------------------------------------------------ */
 
+// Appends one row, with the registration-number column formatted as text first.
+function addRow(name, row) {
+  const sh = sheet(name);
+  const r = sh.getLastRow() + 1;
+  (TEXT_COLS[name] || []).forEach(function (c) {
+    sh.getRange(r, c).setNumberFormat('@');
+  });
+  sh.getRange(r, 1, 1, row.length).setValues([row]);
+}
+
 function sheet(name) {
   const ss = SpreadsheetApp.openById(SHEET_ID);
   let sh = ss.getSheetByName(name);
@@ -323,7 +340,9 @@ function findStudent(regNo) {
   const reg = cleanReg(regNo);
   if (!reg) return null;
   return findRow(sheet('Students'), function (r) {
-    return String(r[S.reg - 1]) === reg;
+    const v = r[S.reg - 1];
+    // Rows saved before the text fix may hold a number with its leading zeros lost.
+    return String(v) === reg || (typeof v === 'number' && String(v) === reg.replace(/^0+(?=\d)/, ''));
   }, S.salt);
 }
 
@@ -356,7 +375,7 @@ function newSession(reg, device) {
   const token = Utilities.getUuid() + Utilities.getUuid().replace(/-/g, '');
   const now = new Date();
   const expires = new Date(now.getTime() + SESSION_DAYS * 86400000);
-  sheet('Sessions').appendRow([token, reg, now, expires, safe(cleanText(device, 120))]);
+  addRow('Sessions', [token, reg, now, expires, safe(cleanText(device, 120))]);
   CacheService.getScriptCache().put('s:' + token, reg + '|' + expires.getTime(), 21600);
   return token;
 }
@@ -367,14 +386,14 @@ function readSession(token) {
   const hit = cache.get('s:' + token);
   if (hit) {
     const parts = hit.split('|');
-    if (Number(parts[1]) > Date.now()) return { reg: parts[0] };
+    if (Number(parts[1]) > Date.now()) return { reg: String(parts[0]) };
   }
   const found = findRow(sheet('Sessions'), function (r) {
     return r[0] === token;
   });
   if (!found || new Date(found.values[3]).getTime() < Date.now()) return null;
   cache.put('s:' + token, found.values[1] + '|' + new Date(found.values[3]).getTime(), 21600);
-  return { reg: found.values[1] };
+  return { reg: String(found.values[1]) };
 }
 
 function dropSessions(test) {
@@ -398,11 +417,11 @@ function requireUser(token) {
 }
 
 function logLogin(reg, name, email, event, device) {
-  sheet('Logins').appendRow([new Date(), reg, name, email, event, cleanText(device, 160)].map(safe));
+  addRow('Logins', [new Date(), String(reg), name, email, event, cleanText(device, 160)].map(safe));
 }
 
 function userOf(v) {
-  return { regNo: v[S.reg - 1], name: v[S.name - 1], email: v[S.email - 1] };
+  return { regNo: String(v[S.reg - 1]), name: String(v[S.name - 1]), email: String(v[S.email - 1]) };
 }
 
 function parseProgress(text) {
