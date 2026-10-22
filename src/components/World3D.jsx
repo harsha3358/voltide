@@ -1,5 +1,6 @@
 import { useEffect, useRef } from 'react';
 import * as THREE from 'three';
+import { onTint } from '../lib/missionThemes.js';
 
 // VOLTIDE WORLD: the 3D motion background.
 // A night ocean made of glowing data points, lightning that strikes the water
@@ -86,6 +87,14 @@ export default function World3D({ palette = {}, mood = 'spark', opacity = 1 }) {
       flash: new THREE.Color(palette.flash || '#ffdf20'),
       core: new THREE.Color(palette.core || '#8e51ff')
     };
+    // Each mission can tint the ocean; the colours blend over about a second.
+    const BASE = { deep: C.deep.clone(), crest: C.crest.clone(), flash: C.flash.clone() };
+    const T = { deep: BASE.deep.clone(), crest: BASE.crest.clone(), flash: BASE.flash.clone() };
+    const offTint = onTint(t => {
+      T.deep.set(t?.deep || BASE.deep);
+      T.crest.set(t?.crest || BASE.crest);
+      T.flash.set(t?.flash || BASE.flash);
+    });
 
     let renderer;
     try {
@@ -210,6 +219,9 @@ export default function World3D({ palette = {}, mood = 'spark', opacity = 1 }) {
     const render = () => {
       const t = clock.getElapsedTime();
       oceanMat.uniforms.uTime.value = t;
+      oceanMat.uniforms.uDeep.value.lerp(T.deep, 0.035);
+      oceanMat.uniforms.uCrest.value.lerp(T.crest, 0.035);
+      oceanMat.uniforms.uFlash.value.lerp(T.flash, 0.035);
 
       pointer.x += (pointer.tx - pointer.x) * 0.04;
       pointer.y += (pointer.ty - pointer.y) * 0.04;
@@ -265,6 +277,7 @@ export default function World3D({ palette = {}, mood = 'spark', opacity = 1 }) {
 
     return () => {
       cancelAnimationFrame(raf);
+      offTint();
       io.disconnect();
       ro.disconnect();
       document.removeEventListener('visibilitychange', onVis);

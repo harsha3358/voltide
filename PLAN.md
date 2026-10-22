@@ -81,6 +81,10 @@ local VM. **Stop or delete temporary cloud resources after the workshop.**
 - **3D background:** custom three.js *Voltide World*: a point-cloud ocean with waves, lightning strikes
   that send ripple rings across the water (click anywhere to strike), a floating wireframe core and
   rising sparks; the camera follows the pointer and dives as you scroll. Lite mode swaps it for CSS.
+- **Per-mission themes** (`src/lib/missionThemes.js`, `src/styles/themes.css`): every one of the 38
+  missions has its own colour pair and animated background pattern (circuit, waves, hex, rain, topo,
+  dots, bolts, grid, bubbles, chevrons, stars, plus), and the 3D ocean behind the page blends to that
+  mission's colours as you scroll into it. Override per mission with `theme: { a, b, motif }`.
 - **3D motion scenes** (`src/three/`, three.js, lazy-loaded, paused off-screen, off in lite mode): home
   globe of cloud regions with packet arcs · Ep 01 cloud of light over server racks with lightning ·
   Ep 02 router mesh with pings hopping you → server · Ep 03 data-centre aisle fly-through with VMs

@@ -5,14 +5,21 @@ import { Arrow, Check } from './Icons.jsx';
 import Volty from './Volty.jsx';
 import { award } from '../lib/game.js';
 import { CopyLink } from './Extras.jsx';
+import { missionTheme } from '../lib/missionThemes.js';
 
 // Renders one topic object from a session's content.jsx. Every field is optional
 // except id and title, so a topic can be as light or as rich as it needs.
 const Topic = forwardRef(function Topic({ session, topic, index, done, onToggleDone }, ref) {
   const demos = topic.demos || (topic.demo ? [topic.demo] : []);
   const visuals = topic.visuals || (topic.visual ? [topic.visual] : []);
+  const th = missionTheme(session.number, index, topic.theme);
   return (
-    <article ref={ref} className="topic" id={`topic-${topic.id}`} data-topic={topic.id}>
+    <article ref={ref} className={`topic topic--${th.motif}`} id={`topic-${topic.id}`} data-topic={topic.id} style={{ '--accent': th.a, '--accent-2': th.b, '--m-deep': th.deep }}>
+      <div className="topic__bg" aria-hidden="true">
+        <i className="topic__pattern" />
+        <i className="topic__orb" />
+        <i className="topic__orb topic__orb--2" />
+      </div>
       <header className="topic__head">
         {topic.hook && (
           <div className="hook" data-reveal>

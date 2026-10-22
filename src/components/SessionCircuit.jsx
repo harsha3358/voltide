@@ -1,3 +1,4 @@
+import { missionTheme } from '../lib/missionThemes.js';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { useGSAP } from '@gsap/react';
 import { gsap } from '../lib/motion.js';
@@ -76,7 +77,7 @@ export default function SessionCircuit({ session, topics, isDone }) {
           const done = isDone?.(session.number, n.id);
           return (
             <a key={n.id} href={href.topic(session.number, n.id)} aria-label={`Topic ${n.i + 1}: ${n.title}`}>
-              <g style={{ cursor: 'pointer' }}>
+              <g style={{ cursor: 'pointer', '--accent': missionTheme(session.number, n.i, topics[n.i]?.theme).a }}>
                 <circle className="sc-node-ring" cx={n.x} cy={n.y} r="18" fill="none" stroke={done ? 'var(--ok)' : 'var(--accent)'} strokeWidth="1.5" />
                 <circle cx={n.x} cy={n.y} r="20" fill="#050d1d" stroke={done ? 'var(--ok)' : 'var(--accent)'} strokeWidth="2.5" />
                 <text x={n.x} y={n.y + 5} textAnchor="middle" fontFamily="JetBrains Mono" fontSize="14" fill={done ? 'var(--ok)' : '#fff'}>

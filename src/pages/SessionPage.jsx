@@ -7,6 +7,7 @@ import { useReveal } from '../lib/useReveal.js';
 import { scrollToElement, scrollToTop, ScrollTrigger } from '../lib/motion.js';
 import Backdrop from '../components/Backdrop.jsx';
 import Scene3D from '../components/Scene3D.jsx';
+import { missionTheme, setTint } from '../lib/missionThemes.js';
 import LockGate from '../components/LockGate.jsx';
 import Topic from '../components/Topic.jsx';
 import SessionCircuit from '../components/SessionCircuit.jsx';
@@ -55,12 +56,46 @@ function useActiveTopic(content) {
   return active;
 }
 
+// True while the middle of the screen is inside the missions column, so the
+// 3D ocean only takes a mission's colours while you're actually in one.
+function useInMissions(content) {
+  const [inside, setInside] = useState(false);
+  useEffect(() => {
+    if (!content) return;
+    let raf = 0;
+    const check = () => {
+      raf = 0;
+      const el = document.querySelector('.s-layout');
+      if (!el) return;
+      const r = el.getBoundingClientRect();
+      const mid = window.innerHeight * 0.5;
+      setInside(r.top < mid && r.bottom > mid);
+    };
+    const onScroll = () => raf || (raf = requestAnimationFrame(check));
+    window.addEventListener('scroll', onScroll, { passive: true });
+    check();
+    return () => {
+      window.removeEventListener('scroll', onScroll);
+      cancelAnimationFrame(raf);
+    };
+  }, [content]);
+  return inside;
+}
+
 export default function SessionPage({ route }) {
   useLockVersion();
   const session = getSession(route.session);
   const open = session && isUnlocked(session);
   const content = useSessionContent(session, open);
   const active = useActiveTopic(content);
+  const inMissions = useInMissions(content);
+  useEffect(() => {
+    const i = content?.topics.findIndex(x => x.id === active) ?? -1;
+    if (!inMissions || i < 0) return setTint(null);
+    const th = missionTheme(session.number, i, content.topics[i].theme);
+    setTint({ deep: th.deep, crest: th.b, flash: th.a });
+  }, [active, inMissions, content, session]);
+  useEffect(() => () => setTint(null), []);
   const progress = useProgress();
   const ref = useRef(null);
   useReveal(ref, [content]);
@@ -190,7 +225,7 @@ export default function SessionPage({ route }) {
           <div className="toc__title">MISSIONS</div>
           <ol>
             {topics.map((t, i) => (
-              <li key={t.id}>
+              <li key={t.id} style={{ '--accent': missionTheme(session.number, i, t.theme).a }}>
                 <a href={href.topic(session.number, t.id)} aria-current={active === t.id ? 'true' : undefined}>
                   <span>{String(i + 1).padStart(2, '0')}</span>
                   <span>{t.short || t.title}</span>
