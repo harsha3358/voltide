@@ -30,6 +30,14 @@ export function scrollToElement(el, offset = -96) {
   else window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY + offset, behavior: 'smooth' });
 }
 
+// Instant version, used to correct a deep-link scroll after late layout shifts.
+export function jumpToElement(el, offset = -96) {
+  if (!el) return;
+  const top = el.getBoundingClientRect().top + window.scrollY + offset;
+  if (lenis) lenis.scrollTo(top, { immediate: true });
+  else window.scrollTo(0, top);
+}
+
 export function scrollToTop(immediate = true) {
   if (lenis) lenis.scrollTo(0, { immediate });
   else window.scrollTo(0, 0);

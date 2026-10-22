@@ -12,10 +12,12 @@
    - **Live demo**: try it in the browser. No cloud bill, ever.
    - **Hands-on lab**: commands for *your own* Ubuntu VM, with the expected output shown.
    - **Checkpoint**: one question, **+50 XP**. Three right in a row starts a combo for double XP.
-3. Press **Mark mission complete** (+30 XP). That also cracks one fragment of LAGZILLA's **secret transmission**.
-4. At the end of each episode: the **boss fight**. 20 seconds per question, 3 lives, +400 XP and a badge.
-5. Your **profile** (click the XP bar) has your handle, badges, rank ladder and certificates. Win all four episodes for the **Workshop Graduate** certificate.
-6. Stuck on a word? Use the [jargon buster](#/glossary).
+3. Follow the step strip at the top of each mission (**Learn → Try it → Lab → Check**). It ticks as you go; tap a step to jump to it.
+4. In labs, press **I ran it** after each command (+10 XP each, +40 when the whole lab is done).
+5. At the end, press **Done · Next** (+30 XP). It completes the mission, cracks one fragment of LAGZILLA's **secret transmission** and takes you to the next one. On a phone, the bar at the bottom does the same with ‹ and ›.
+6. At the end of each episode: the **boss fight**. 20 seconds per question, 3 lives, +400 XP and a badge.
+7. Your **profile** (click the XP bar) has your handle, badges, rank ladder and certificates. Win all four episodes for the **Workshop Graduate** certificate.
+8. Stuck on a word? Use the [jargon buster](#/glossary).
 
 ## Buttons you'll see
 
@@ -39,7 +41,7 @@ On the profile page, scroll to **Reset**. You get two options:
 
 | Option | Clears | Keeps |
 |---|---|---|
-| **Reset score** | XP, rank, badges, combos, boss wins | Mission progress, checklists, unlocked episodes |
+| **Reset score** | XP, rank, badges, combos, boss wins, lab ticks | Mission progress, checklists, unlocked episodes |
 | **Reset everything** | All of it: XP, badges, missions, checklists, unlocked episodes, team card, handle | Only the lite-mode setting |
 
 Use **Reset everything** on a shared lab PC before the next student sits down.

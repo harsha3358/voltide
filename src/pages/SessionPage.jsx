@@ -4,7 +4,7 @@ import { href } from '../lib/router.js';
 import { isUnlocked, useLockVersion } from '../lib/lock.js';
 import { useProgress } from '../lib/progress.js';
 import { useReveal } from '../lib/useReveal.js';
-import { scrollToElement, scrollToTop, ScrollTrigger } from '../lib/motion.js';
+import { jumpToElement, scrollToElement, scrollToTop, ScrollTrigger } from '../lib/motion.js';
 import Backdrop from '../components/Backdrop.jsx';
 import Scene3D from '../components/Scene3D.jsx';
 import { missionTheme, setTint } from '../lib/missionThemes.js';
@@ -123,11 +123,38 @@ export default function SessionPage({ route }) {
       return;
     }
     const el = document.getElementById(`topic-${route.topic}`);
-    const t = setTimeout(() => {
-      ScrollTrigger.refresh();
-      scrollToElement(el);
-    }, 120);
-    return () => clearTimeout(t);
+    const timers = [
+      setTimeout(() => {
+        ScrollTrigger.refresh();
+        scrollToElement(el);
+      }, 120)
+    ];
+    // Images, demos and 3D scenes above the target can still change height
+    // while we scroll, so re-check a few times and snap into place, unless
+    // the student has started scrolling or tapping on their own.
+    let touched = false;
+    const stop = () => (touched = true);
+    const opts = { passive: true, once: true };
+    window.addEventListener('wheel', stop, opts);
+    window.addEventListener('touchstart', stop, opts);
+    window.addEventListener('keydown', stop, opts);
+    window.addEventListener('pointerdown', stop, opts);
+    [1500, 2600, 3800].forEach(ms =>
+      timers.push(
+        setTimeout(() => {
+          if (touched || !el) return;
+          const top = el.getBoundingClientRect().top;
+          if (top < 40 || top > 160) jumpToElement(el);
+        }, ms)
+      )
+    );
+    return () => {
+      timers.forEach(clearTimeout);
+      window.removeEventListener('wheel', stop);
+      window.removeEventListener('touchstart', stop);
+      window.removeEventListener('keydown', stop);
+      window.removeEventListener('pointerdown', stop);
+    };
   }, [content, route.topic, route.session]);
 
   if (!session) {
@@ -153,6 +180,15 @@ export default function SessionPage({ route }) {
   if (!content) return <Loader label={`CHARGING EPISODE 0${session.number}`} />;
 
   const { topics } = content;
+  // Jump to mission i (or past the last one, to the boss fight).
+  const goTo = i => {
+    if (i >= topics.length) return scrollToElement(document.querySelector('.boss'));
+    if (i < 0) return;
+    const h = href.topic(session.number, topics[i].id);
+    if (window.location.hash === h) scrollToElement(document.getElementById(`topic-${topics[i].id}`));
+    else window.location.hash = h;
+  };
+  const activeIndex = topics.findIndex(t => t.id === active);
   const doneCount = topics.filter(t => progress.isDone(session.number, t.id)).length;
   const next = SESSIONS.find(s => s.number === session.number + 1);
   const nextOpen = next && isUnlocked(next);
@@ -161,6 +197,23 @@ export default function SessionPage({ route }) {
     <div ref={ref}>
       <Backdrop kind={session.backdrop} opacity={0.75} props={session.world} />
       <EpisodeIntro session={session} episode={content.episode} />
+      {inMissions && activeIndex >= 0 && (
+        <nav className="mbar" aria-label="Mission navigation">
+          <button type="button" className="mbar__btn" onClick={() => goTo(activeIndex - 1)} disabled={activeIndex === 0} aria-label="Previous mission">
+            ‹
+          </button>
+          <a className="mbar__mid" href="#session-map" onClick={e => (e.preventDefault(), scrollToElement(document.getElementById('session-map')))} style={{ '--accent': missionTheme(session.number, activeIndex, topics[activeIndex].theme).a }}>
+            <span className="mbar__num">
+              Mission {String(activeIndex + 1).padStart(2, '0')}/{String(topics.length).padStart(2, '0')} · {doneCount} done
+            </span>
+            <span className="mbar__title">{topics[activeIndex].short || topics[activeIndex].title}</span>
+            <span className="mbar__bar"><i style={{ width: `${(doneCount / topics.length) * 100}%` }} /></span>
+          </a>
+          <button type="button" className="mbar__btn" onClick={() => goTo(activeIndex + 1)} aria-label={activeIndex === topics.length - 1 ? 'Go to the boss fight' : 'Next mission'}>
+            ›
+          </button>
+        </nav>
+      )}
       <section className="s-hero">
         <div className="wrap">
           <div className="tabs" style={{ marginBottom: 22 }}>
@@ -262,7 +315,7 @@ export default function SessionPage({ route }) {
           {topics.map((t, i) => (
             <Fragment key={t.id}>
               {i > 0 && (i % 2 ? <WaveDivider /> : <CircuitDivider />)}
-              <Topic session={session} topic={t} index={i} done={progress.isDone(session.number, t.id)} onToggleDone={() => progress.toggle(session.number, t.id)} />
+              <Topic session={session} topic={t} index={i} done={progress.isDone(session.number, t.id)} onToggleDone={() => progress.toggle(session.number, t.id)} next={topics[i + 1]} onNext={() => goTo(i + 1)} />
             </Fragment>
           ))}
 

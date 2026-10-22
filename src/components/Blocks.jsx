@@ -1,8 +1,8 @@
 import { useRef, useState } from 'react';
 import { inline } from '../lib/md.js';
 import { useSpark } from './Spark.jsx';
-import { answer, award } from '../lib/game.js';
-import { Alert, Check } from './Icons.jsx';
+import { answer, award, useGame } from '../lib/game.js';
+import { Alert, Bolt, Check, Drop, Sparkle, Terminal as TermIcon } from './Icons.jsx';
 
 export const Md = ({ as: Tag = 'span', children, ...rest }) => <Tag {...rest} dangerouslySetInnerHTML={inline(children)} />;
 
@@ -15,16 +15,19 @@ export function Helpers({ plain, analogy, jargon }) {
     <div className="helpers" data-reveal>
       {plain && (
         <div className="helper helper--plain">
+          <span className="helper__icon" aria-hidden="true"><Sparkle /></span>
           <Md as="p">{plain}</Md>
         </div>
       )}
       {analogy && (
         <div className={`helper ${water ? 'helper--water' : 'helper--electric'}`}>
+          <span className="helper__icon" aria-hidden="true">{water ? <Drop /> : <Bolt />}</span>
           <Md as="p">{analogy.text}</Md>
         </div>
       )}
       {jargon?.length > 0 && (
-        <div className="helper">
+        <div className="helper helper--jargon">
+          <span className="helper__icon" aria-hidden="true"><TermIcon /></span>
           <dl className="jargon">
             {jargon.map(([term, def]) => (
               <div key={term}>
@@ -76,20 +79,40 @@ export function TermBlock({ cmd, out, label }) {
   );
 }
 
+// Each lab step has an "I ran it" tick worth a little XP; ticking every step
+// completes the lab for a bonus. Ticks are stored as awards, so they survive
+// a refresh and clear with a score reset.
 export function Lab({ lab }) {
+  const g = useGame();
+  const burst = useSpark();
+  const ran = lab.steps.map((_, i) => Boolean(g.awards?.[`lab:${lab.id}:${i}`]));
+  const count = ran.filter(Boolean).length;
+  const complete = count === lab.steps.length;
+  const tick = (i, el) => {
+    if (ran[i]) return;
+    award(`lab:${lab.id}:${i}`, 10, 'Lab step done');
+    if (count + 1 === lab.steps.length) {
+      award(`labdone:${lab.id}`, 40, 'Lab complete. Real cloud engineer behaviour.');
+      burst(el);
+    }
+  };
   return (
-    <section className="lab" data-reveal id={lab.id}>
+    <section className={`lab ${complete ? 'lab--done' : ''}`} data-reveal id={lab.id}>
       <div className="lab__head">
         <span className="lab__tag">{lab.tag || 'HANDS-ON LAB'}</span>
         <h3>{lab.title}</h3>
+        <span className="lab__count" aria-live="polite">{complete ? '✓ lab complete' : `${count}/${lab.steps.length} done`}</span>
       </div>
       {lab.goal && <Md as="p" className="lab__goal">{lab.goal}</Md>}
       <ol>
         {lab.steps.map((step, i) => (
-          <li key={i}>
+          <li key={i} className={ran[i] ? 'is-ran' : ''}>
             <div>
               <Md as="p">{step.do}</Md>
               {(step.cmd || step.out) && <TermBlock cmd={step.cmd} out={step.out} />}
+              <button type="button" className="lab__tick" aria-pressed={ran[i]} disabled={ran[i]} onClick={e => tick(i, e.currentTarget)}>
+                {ran[i] ? '✓ Done' : step.cmd ? 'I ran it (+10 XP)' : 'Done (+10 XP)'}
+              </button>
             </div>
           </li>
         ))}
