@@ -2,7 +2,7 @@
 // The deployed web app URL is built in below. To point at a different
 // deployment, set VITE_SHEETS_API (Vercel → Settings → Environment Variables,
 // or a local .env file). Set VITE_SHEETS_API=off to run with no login.
-const DEPLOYED_API = 'https://script.google.com/macros/s/AKfycbx18JqnShcj5Uxtyv5fNXEIEqGodS3t06-aObOID50a32GiVQx23evUs8uut-tgynFlUA/exec';
+const DEPLOYED_API = 'https://script.google.com/macros/s/AKfycbwnGytFBNFVJZjGTch-NawaCiqXXk40ahr-Nv57KfoGRwYd-pISZQfa1VG5tF1n1iuDqQ/exec';
 const configured = String(import.meta.env.VITE_SHEETS_API ?? '').trim();
 const API = configured.toLowerCase() === 'off' ? '' : configured || DEPLOYED_API;
 export const backendEnabled = Boolean(API);

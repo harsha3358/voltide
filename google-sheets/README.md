@@ -59,7 +59,7 @@ On the Students tab, three columns are **hidden on purpose**: the password hash,
 **Already done for this project.** The deployed web app URL is built into [`src/lib/backend.js`](../src/lib/backend.js):
 
 ```
-https://script.google.com/macros/s/AKfycbx18JqnShcj5Uxtyv5fNXEIEqGodS3t06-aObOID50a32GiVQx23evUs8uut-tgynFlUA/exec
+https://script.google.com/macros/s/AKfycbwnGytFBNFVJZjGTch-NawaCiqXXk40ahr-Nv57KfoGRwYd-pISZQfa1VG5tF1n1iuDqQ/exec
 ```
 
 Just push the project to GitHub and Vercel redeploys it with the login screen switched on.
