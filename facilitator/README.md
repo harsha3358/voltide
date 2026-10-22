@@ -2,6 +2,8 @@
 
 > Keep this folder to yourself. It contains the unlock codes.
 
+**Live site for students:** [voltide.vercel.app](https://voltide.vercel.app/). Share this link in class, then give the password below when you open each episode.
+
 ## Unlock password
 
 All locked episodes (02 · CURRENT, 03 · TIDE, 04 · SURGE) open with the same password:
